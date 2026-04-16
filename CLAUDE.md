@@ -1,0 +1,133 @@
+# CLAUDE.md
+
+Guidance for Claude Code when working in this repository.
+
+## Project
+
+South Florida State College LibGuides — migrating from Bootstrap 3 to Bootstrap 5 with WCAG 2.1 Level AA compliance.
+
+## AI Role in the process
+
+You are a senior UI designer and frontend developer.
+Build premium interfaces.
+Use proper spacing, and visual hierarchy.
+No inline styles. 
+
+## Key Constraint
+
+Code is never edited on the server directly. All changes are submitted through the LibGuides backend CMS. Write complete, self-contained code snippets ready to paste in.
+
+## Stack
+
+- **CMS:** Springshare LibGuides (hosted platform — no direct server access)
+- **CSS Framework:** Bootstrap 5.3.0
+- **Accessibility Standard:** WCAG 2.1 Level AA
+
+## Files
+
+| File | Purpose |
+|------|---------|
+| `sfsccustom.css` | Bootstrap 5 custom style overrides |
+| `sfsccustom.js` | JavaScript for new BS5 header nav and active page detection |
+| `header.html` | New BS5 header |
+| `footer.html` | New BS5 footer |
+| `homepagelayout.html` | homepage template for Libguides using their custom language |
+| `template-bs5.html` | Full-page BS5 template reference |
+| `newhomepage-bs5.html` | Upcoming BS5 homepage |
+| `oldhomepage-bs3.html` | Current BS3 homepage (reference) |
+| `boxandtabcoloroptions.png` | Current LibGuides color settings |
+| `Visual Identity Guide 04.25.2025.pdf` | SFSC visual/brand standards |
+| `april2026releasenotes.md` | LibGuides April 2026 release notes |
+| `Bootstrap 5 Template.pdf` | Accessibility evaluation (4/3/2026) |
+| `primosearchbox.html` | Primo catalog search widget (paste into LibGuides content box) |
+| `childrenslitnavbar.html` | Sample of LibGuides-generated side nav HTML (reference for CSS targeting) |
+| `homepagelist.html` | Actual LibGuides-generated HTML for the guide list page (ALL GUIDES / BY SUBJECT tab bar) |
+
+## Guidelines
+
+- Use Bootstrap 5.3.0 classes and components — do not use BS3 patterns.
+- All UI must meet WCAG 2.1 Level AA: proper heading hierarchy, sufficient color contrast, ARIA labels on interactive elements, keyboard navigability.
+- When migrating BS3 → BS5: replace deprecated classes (e.g., `hidden-xs` → `d-none d-sm-block`), update grid system, replace `.panel` with `.card`, update form classes.
+- Follow SFSC visual identity standards (see `Visual Identity Guide 04.25.2025.pdf`) for colors, typography, and logo usage. Except we are going to use the Poppins font for now,}
+- Output clean, paste-ready HTML/CSS/JS snippets — no build tools, no npm dependencies.
+
+## CSS Scoping — Critical
+
+LibGuides uses Bootstrap class names internally (e.g. `.dropdown-item`, `.navbar-nav .nav-link`, `.nav-link`) for its own UI components like the guide side nav. **Any CSS rule targeting a generic Bootstrap class will bleed into LibGuides' internal components and break their layout.**
+
+Always scope Bootstrap class selectors to our own elements:
+- Use `.sfsc-nav .dropdown-item` not `.dropdown-item`
+- Use `.sfsc-nav .navbar-nav .nav-link` not `.navbar-nav .nav-link`
+- Use `#s-lg-guide-tabs .nav-link` to target the guide side nav specifically
+
+When a CSS fix has no visible effect, suspect that LibGuides' system stylesheet (which loads after ours) is overriding it — try adding `!important` and/or a more specific selector.
+
+**`background-color` overrides are not enough when LibGuides uses `background-image`.** LibGuides sets `background-image: linear-gradient(#e8eaf6, #c5cae9)` on `#s-lg-hp-nav-bottom` (and likely other nav-bottom elements). A gradient renders above `background-color`, making the color invisible. Always pair background overrides with `background-image: none !important` when targeting these elements.
+
+## LibGuides Look & Feel — Paste Fields
+
+- CSS field accepts raw CSS — no `<style>` tags needed. If pasting into an HTML field, `@import` must be the first line inside `<style>`.
+- All three fields (Header HTML, CSS, JS) can get wiped together by a LibGuides CMS bug. If the page breaks, check all three.
+- After pasting, always hard refresh (Ctrl+Shift+R) to bypass browser cache.
+- The A-Z Databases page has its own separate Look & Feel settings — CSS/JS must be pasted there independently.
+
+## Nav Bar
+
+- Nav link font size must be set with high specificity: `.sfsc-nav .sfsc-nav-link { font-size: 16px !important; }` — LibGuides system CSS sets it to 12px and wins against single-class or `rem`-based rules.
+- Active nav link uses orange background — use dark text (`#1a1a1a`) not white; white on orange is only 2.72:1 contrast (WCAG fail).
+- Active page detection is handled by JS in `sfsccustom.js` — do not hardcode `active` class in `header.html`.
+- Always scope header nav rules to `.sfsc-nav .sfsc-nav-link` (two-class specificity) to beat LibGuides' own `.nav-link` overrides.
+
+## Images in Content Boxes
+
+- Wrap banner images in `<p style="margin: 0;">` to eliminate Bootstrap's default paragraph margin-bottom gap at the bottom.
+- Always add `display: block` to images to eliminate the inline baseline gap.
+- Full image style: `style="width: 100%; height: auto; display: block;"`
+- BS5 content column inner width = outer column width minus 24px (Bootstrap gutter). Banner images should be sized to the inner width.
+- Current guide content column inner width: ~896px. Banner proportions: 896 × 316px (equivalent to old BS3 850 × 300px).
+
+## LibGuides Generated HTML — Critical
+
+LibGuides generates its own markup for components like the side nav, breadcrumbs, and guide tabs. **Never write CSS selectors for these components based on assumptions — always inspect the actual generated HTML first.** Ask the user to paste the generated markup if needed before writing selectors.
+
+## LibGuides Side Nav (`#s-lg-guide-tabs`)
+
+- Top-level items use `.nav-link`; sub-items use `.d-block` — they have different default padding.
+- Use `#s-lg-guide-tabs .nav-link { font-size: 16px !important; }` and `#s-lg-guide-tabs .d-block { font-size: 16px !important; }` to set font size on both levels.
+- Use `#s-lg-guide-tabs .nav-link { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }` for balanced hierarchy.
+- Use `#s-lg-guide-tabs .s-lg-subtab-ul li:last-child { margin-bottom: 0 !important; }` to prevent trailing gap after sub-item groups.
+- The ID selector `#s-lg-guide-tabs` provides enough specificity to override LibGuides' own styles.
+
+## Guide List Tab Bar (`#s-lg-hp-nav`)
+
+The "ALL GUIDES / BY SUBJECT" tab bar on the guide list page uses this structure:
+
+```html
+<div id="s-lg-hp-nav">
+  <ul class="list-unstyled">
+    <li>
+      <ul class="nav nav-pills flex-wrap mb-3">
+        <li id="s-lg-index-all-btn" class="s-lg-index-nav-btn active">
+          <button class="btn">ALL GUIDES</button>
+        </li>
+        <li id="s-lg-index-subject-btn" class="s-lg-index-nav-btn">
+          <button class="btn">BY SUBJECT</button>
+        </li>
+        <!-- hidden: #s-lg-index-group-btn, #s-lg-index-guidetype-btn, #s-lg-index-owner-btn -->
+      </ul>
+    </li>
+    <li id="s-lg-hp-nav-bottom"> <!-- search form row --> </li>
+  </ul>
+</div>
+```
+
+- Active state is `li.s-lg-index-nav-btn.active` — target with `#s-lg-hp-nav .s-lg-index-nav-btn.active .btn`.
+- Buttons are `<button class="btn">`, not `.nav-link` — do not use `.nav-pills .nav-link.active` selectors here.
+- The bar is styled to match the header nav: `var(--sfsc-blue)` background, 4px orange bottom border, orange active button with `#1a1a1a` text.
+- Do **not** use unscoped `.nav-pills .nav-link.active` rules — they bleed into LibGuides' own components. That legacy BS3 rule has been removed.
+
+## Form Controls (WCAG 1.4.11 Non-text Contrast)
+
+- Bootstrap's default `.form-control` border (`#dee2e6`) is only 1.61:1 on white — fails WCAG 1.4.11 (requires 3:1).
+- Use `.sfsc-search-input { border-color: var(--sfsc-blue) !important; }` — SFSC blue is 10.7:1 on white.
+- The Primo search box uses a pill design: `.sfsc-primo-search` wrapper with rounded input/button ends and a focus ring on the container via `:focus-within`.

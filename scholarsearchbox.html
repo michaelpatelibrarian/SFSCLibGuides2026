@@ -1,0 +1,41 @@
+<form id="searchForm0" method="get" target="_blank"
+  action="https://sfsc-flvc.primo.exlibrisgroup.com/discovery/search"
+  aria-label="Library catalog search">
+
+  <input type="hidden" name="vid" value="01FALSC_SFSC:SFSC">
+  <input type="hidden" name="search_scope" value="MyInst_and_CI">
+  <input type="hidden" name="lang" value="en">
+  <input type="hidden" name="pcAvailability" value="false">
+  <input type="hidden" name="query" id="primoQuery">
+
+  <label for="primoQueryTemp" class="visually-hidden">Search the library catalog</label>
+  <div class="input-group sfsc-primo-search">
+    <input type="search" id="primoQueryTemp" name="primoQueryTemp" class="form-control sfsc-search-input"
+      placeholder="Find Books, eBooks, Articles, DVDs, and Streaming Videos"
+      aria-label="Search the library catalog">
+    <button type="submit" class="btn btn-sfsc-search">Search</button>
+  </div>
+</form>
+
+<p class="mt-2">Visit our <a href="https://libguides.southflorida.edu/primo">Primo Research Guide</a> if you have any questions.</p>
+
+<script>
+(function () {
+  const base64Map = { '=': 'PQ==', '/': 'Lw==', '\\': 'XA==', '?': 'Pw==' };
+
+  function encodeForPrimo(raw) {
+    let s = raw.replace(/,/g, ' ');
+    for (const [char, encoded] of Object.entries(base64Map)) {
+      s = s.split(char).join(encoded);
+    }
+    return s;
+  }
+
+  document.getElementById('searchForm0').addEventListener('submit', function () {
+    const raw = this.elements['primoQueryTemp'].value.trim();
+    this.elements['primoQuery'].value = raw.length > 0
+      ? 'any,contains,' + encodeForPrimo(raw)
+      : '';
+  });
+}());
+</script>
