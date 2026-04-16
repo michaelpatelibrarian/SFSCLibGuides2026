@@ -40,6 +40,7 @@ Code is never edited on the server directly. All changes are submitted through t
 | `april2026releasenotes.md` | LibGuides April 2026 release notes |
 | `Bootstrap 5 Template.pdf` | Accessibility evaluation (4/3/2026) |
 | `primosearchbox.html` | Primo catalog search widget (paste into LibGuides content box) |
+| `scholarsearchbox.html` | Google Scholar search widget — same pill style as Primo box (paste into LibGuides content box) |
 | `childrenslitnavbar.html` | Sample of LibGuides-generated side nav HTML (reference for CSS targeting) |
 | `homepagelist.html` | Actual LibGuides-generated HTML for the guide list page (ALL GUIDES / BY SUBJECT tab bar) |
 
@@ -130,4 +131,4 @@ The "ALL GUIDES / BY SUBJECT" tab bar on the guide list page uses this structure
 
 - Bootstrap's default `.form-control` border (`#dee2e6`) is only 1.61:1 on white — fails WCAG 1.4.11 (requires 3:1).
 - Use `.sfsc-search-input { border-color: var(--sfsc-blue) !important; }` — SFSC blue is 10.7:1 on white.
-- The Primo search box uses a pill design: `.sfsc-primo-search` wrapper with rounded input/button ends and a focus ring on the container via `:focus-within`.
+- The Primo and Google Scholar search boxes both use the pill design: `.sfsc-primo-search` wrapper with rounded input/button ends and a focus ring on the container via `:focus-within`. No extra CSS is needed for Scholar — it reuses the same classes.
