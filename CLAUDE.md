@@ -43,6 +43,8 @@ Code is never edited on the server directly. All changes are submitted through t
 | `scholarsearchbox.html` | Google Scholar search widget — same pill style as Primo box (paste into LibGuides content box) |
 | `childrenslitnavbar.html` | Sample of LibGuides-generated side nav HTML (reference for CSS targeting) |
 | `homepagelist.html` | Actual LibGuides-generated HTML for the guide list page (ALL GUIDES / BY SUBJECT tab bar) |
+| `libraryhours.html` | LibCal hours widget embed — paste into a LibGuides HTML content box |
+| `hourswidget.html` | Full rendered HTML output of the LibCal widget (reference for CSS targeting) |
 
 ## Guidelines
 
@@ -126,6 +128,16 @@ The "ALL GUIDES / BY SUBJECT" tab bar on the guide list page uses this structure
 - Buttons are `<button class="btn">`, not `.nav-link` — do not use `.nav-pills .nav-link.active` selectors here.
 - The bar is styled to match the header nav: `var(--sfsc-blue)` background, 4px orange bottom border, orange active button with `#1a1a1a` text.
 - Do **not** use unscoped `.nav-pills .nav-link.active` rules — they bleed into LibGuides' own components. That legacy BS3 rule has been removed.
+
+## LibCal Hours Widget (`#s-lc-fhw3652`)
+
+The LibCal hours widget (`hours_full.js`) generates BS3-style markup inside the BS5 page. Two nav components need CSS overrides:
+
+- **Hours of Operation / Location tabs** — generated as `<ul class="nav nav-tabs">` with `<li class="active"><a data-toggle="tab">`. BS5 renders the active `<li>` as a bordered box. Fix by resetting `border`, `border-radius`, and `background` on `#s-lc-fhw3652 .nav-tabs > li > a` and using a bottom-border underline for the active state.
+- **Week View / Month View pills** — generated as `<ul class="nav nav-pills s-lc-fhw-pills">` with `<li class="active"><a>`. BS5 bleeds a dark filled-button style onto the active item. Fix by overriding `#s-lc-fhw3652 .nav-pills > li.active > a` with `var(--sfsc-blue)` background.
+- The widget uses `data-toggle="tab"` (BS3 syntax). Tab-switching still works because LibGuides ships jQuery/BS3 alongside BS5.
+- Always scope all rules to `#s-lc-fhw3652` to avoid bleeding into other LibGuides nav components.
+- See `libraryhours.html` for the working paste-ready snippet with all overrides.
 
 ## Form Controls (WCAG 1.4.11 Non-text Contrast)
 
