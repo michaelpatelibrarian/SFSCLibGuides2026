@@ -32,81 +32,60 @@
 
     document.addEventListener('headerLoaded', setActiveNavLink);
 
-    function initDropdown() {
-        // Try to find the Services dropdown
-        let toggle = document.getElementById('servicesDropdown');
-        let menu = document.querySelector('.dropdown-menu');
+    function initDropdowns() {
+        document.querySelectorAll('.sfsc-nav .dropdown').forEach(function(dropdown) {
+            const toggle = dropdown.querySelector('.dropdown-toggle');
+            const menu = dropdown.querySelector('.dropdown-menu');
+            if (!toggle || !menu) return;
 
-        // If not found by ID, search for it
-        if (!toggle) {
-            const dropdowns = document.querySelectorAll('.dropdown');
-            for (let dropdown of dropdowns) {
-                const link = dropdown.querySelector('.dropdown-toggle');
-                if (link && link.textContent.trim().toLowerCase().includes('services')) {
-                    toggle = link;
-                    menu = dropdown.querySelector('.dropdown-menu');
-                    break;
+            // Clone to remove any previously attached listeners
+            const newToggle = toggle.cloneNode(true);
+            toggle.parentNode.replaceChild(newToggle, toggle);
+
+            newToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const isOpen = menu.classList.contains('show');
+
+                // Close all dropdowns in the nav first
+                document.querySelectorAll('.sfsc-nav .dropdown-menu.show').forEach(function(m) {
+                    m.classList.remove('show');
+                });
+                document.querySelectorAll('.sfsc-nav [aria-expanded="true"]').forEach(function(t) {
+                    t.setAttribute('aria-expanded', 'false');
+                });
+
+                // If it was closed, open it
+                if (!isOpen) {
+                    menu.classList.add('show');
+                    newToggle.setAttribute('aria-expanded', 'true');
                 }
-            }
-        }
-
-        if (!toggle || !menu) {
-            return false;
-        }
-
-        // Remove existing listeners by cloning
-        const newToggle = toggle.cloneNode(true);
-        toggle.parentNode.replaceChild(newToggle, toggle);
-        toggle = newToggle;
-
-        // Add click handler
-        toggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            const isOpen = menu.classList.contains('show');
-
-            if (isOpen) {
-                menu.classList.remove('show');
-                toggle.setAttribute('aria-expanded', 'false');
-            } else {
-                // Close other dropdowns
-                document.querySelectorAll('.dropdown-menu.show').forEach(m => m.classList.remove('show'));
-                document.querySelectorAll('[aria-expanded="true"]').forEach(t => t.setAttribute('aria-expanded', 'false'));
-
-                menu.classList.add('show');
-                toggle.setAttribute('aria-expanded', 'true');
-            }
+            });
         });
 
-        // Close on outside click
+        // Single outside-click handler to close all dropdowns
         document.addEventListener('click', function(e) {
-            if (!toggle.parentElement.contains(e.target) && menu.classList.contains('show')) {
-                menu.classList.remove('show');
-                toggle.setAttribute('aria-expanded', 'false');
+            if (!e.target.closest('.sfsc-nav .dropdown')) {
+                document.querySelectorAll('.sfsc-nav .dropdown-menu.show').forEach(function(m) {
+                    m.classList.remove('show');
+                });
+                document.querySelectorAll('.sfsc-nav [aria-expanded="true"]').forEach(function(t) {
+                    t.setAttribute('aria-expanded', 'false');
+                });
             }
         });
-
-        return true;
     }
 
-    // Try to initialize immediately
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initDropdown);
+        document.addEventListener('DOMContentLoaded', initDropdowns);
     } else {
-        initDropdown();
-        setTimeout(initDropdown, 1000);
-        setTimeout(initDropdown, 3000);
+        initDropdowns();
     }
 
-    // Listen for header loaded event
+    window.addEventListener('load', initDropdowns);
     document.addEventListener('headerLoaded', function() {
-        setTimeout(initDropdown, 100);
-    });
-
-    // Also try on window load
-    window.addEventListener('load', function() {
-        setTimeout(initDropdown, 500);
+        setTimeout(initDropdowns, 100);
     });
 
 })();

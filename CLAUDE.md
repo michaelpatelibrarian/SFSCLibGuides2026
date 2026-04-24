@@ -80,6 +80,19 @@ When a CSS fix has no visible effect, suspect that LibGuides' system stylesheet 
 - Active nav link uses orange background — use dark text (`#1a1a1a`) not white; white on orange is only 2.72:1 contrast (WCAG fail).
 - Active page detection is handled by JS in `sfsccustom.js` — do not hardcode `active` class in `header.html`.
 - Always scope header nav rules to `.sfsc-nav .sfsc-nav-link` (two-class specificity) to beat LibGuides' own `.nav-link` overrides.
+- The nav has **two dropdowns**: Resources (Research Guides, A-Z Databases, Citation Style Guides, Library Catalog, Laptop Borrowing, Ask a Librarian) and Services (Study Rooms, Tutoring, Writing Center, Open Educational Resources, Panther Pathways).
+
+## Nav Bar — Hamburger Icon
+
+- The hamburger SVG must be set on `.sfsc-nav-toggler .navbar-toggler-icon`, **not** on `.sfsc-nav-toggler` (the button). Bootstrap renders the icon through the inner `<span>`, not the button background. Setting `background-image` on the button causes a large boxy icon on mobile.
+
+## Nav Bar — Dropdown JavaScript
+
+- Do **not** use `data-bs-toggle="dropdown"` on the dropdown toggles. LibGuides' own click handlers close the dropdown before it renders, making it appear broken.
+- Dropdowns are handled by `initDropdowns()` in `sfsccustom.js`, which iterates every `.sfsc-nav .dropdown` and binds each toggle to its own `dropdown.querySelector('.dropdown-menu')`.
+- The old code used `document.querySelector('.dropdown-menu')` (page-wide first match) — this always returned the Resources menu regardless of which toggle was clicked. Any future dropdown JS must scope the menu lookup to the toggle's own parent container.
+- `e.stopPropagation()` on the click handler is required — without it, LibGuides' outside-click handlers immediately close the menu.
+- **Known issue (2026-04-24):** Despite correct JS, dropdowns are still not working on mobile. The `initDropdowns` function logic is correct; suspect a LibGuides JS conflict or caching issue. Next step: verify the new `sfsccustom.js` is actually being served (check version comment in browser devtools).
 
 ## Images in Content Boxes
 
