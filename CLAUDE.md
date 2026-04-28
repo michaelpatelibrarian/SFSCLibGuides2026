@@ -89,10 +89,14 @@ When a CSS fix has no visible effect, suspect that LibGuides' system stylesheet 
 ## Nav Bar — Dropdown JavaScript
 
 - Do **not** use `data-bs-toggle="dropdown"` on the dropdown toggles. LibGuides' own click handlers close the dropdown before it renders, making it appear broken.
-- Dropdowns are handled by `initDropdowns()` in `sfsccustom.js`, which iterates every `.sfsc-nav .dropdown` and binds each toggle to its own `dropdown.querySelector('.dropdown-menu')`.
-- The old code used `document.querySelector('.dropdown-menu')` (page-wide first match) — this always returned the Resources menu regardless of which toggle was clicked. Any future dropdown JS must scope the menu lookup to the toggle's own parent container.
-- `e.stopPropagation()` on the click handler is required — without it, LibGuides' outside-click handlers immediately close the menu.
-- **Known issue (2026-04-24):** Despite correct JS, dropdowns are still not working on mobile. The `initDropdowns` function logic is correct; suspect a LibGuides JS conflict or caching issue. Next step: verify the new `sfsccustom.js` is actually being served (check version comment in browser devtools).
+- Dropdowns are handled with capture-phase event delegation in `sfsccustom.js`, not by cloning toggles or binding each toggle during init. This keeps working when LibGuides injects/replaces header markup.
+- Mobile requires listening on `pointerdown` before `click`. LibGuides/legacy Bootstrap handlers can close the menu before a normal click handler gets a useful open state.
+- Use `touchstart` only as a fallback when `window.PointerEvent` is unavailable. Listening to both `pointerdown` and `touchstart` can double-toggle the menu on modern mobile browsers.
+- Suppress the synthetic follow-up `click` that mobile browsers fire after `pointerdown`/`touchstart`; otherwise the menu opens and immediately closes.
+- `e.preventDefault()`, `e.stopPropagation()`, and `e.stopImmediatePropagation()` are required on dropdown toggle events. Without them, LibGuides' outside-click and legacy dropdown handlers can immediately close the menu.
+- Future dropdown JS must scope menu lookup to the toggle's own parent dropdown: `toggle.closest('.dropdown').querySelector('.dropdown-menu')`. Do not use `document.querySelector('.dropdown-menu')`, which always finds the first menu.
+- Keep dropdown CSS scoped and strong: use `.sfsc-nav .dropdown-menu { display: none !important; }` and `.sfsc-nav .dropdown-menu.show { display: block !important; }`. Generic `.dropdown-menu` rules can bleed into LibGuides components and may lose to LibGuides system CSS.
+- **Resolved issue (2026-04-28):** Resources and Services did not open on mobile because the JS only handled `click` and the CSS `.show` state was not specific enough. The working fix is capture-phase `pointerdown` handling plus scoped `!important` dropdown visibility rules in `sfsccustom.css`.
 
 ## Images in Content Boxes
 

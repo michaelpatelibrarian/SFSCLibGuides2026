@@ -1,20 +1,22 @@
-// SFSC Services Dropdown - Final version for LibGuides
+// SFSC LibGuides Bootstrap 5 custom behavior
 (function() {
     'use strict';
 
+    var lastDropdownTouchTime = 0;
+
     function setActiveNavLink() {
-        const path = window.location.pathname;
-        const navLinks = document.querySelectorAll('.sfsc-nav-link:not(.dropdown-toggle)');
+        var path = window.location.pathname;
+        var navLinks = document.querySelectorAll('.sfsc-nav-link:not(.dropdown-toggle)');
 
         navLinks.forEach(function(link) {
             link.classList.remove('active');
             link.removeAttribute('aria-current');
 
-            const linkPath = new URL(link.href, window.location.origin).pathname;
+            var linkPath = new URL(link.href, window.location.origin).pathname;
 
-            // Match homepage exactly, all others by startsWith
-            const isHome = linkPath === '/' && (path === '/' || path === '');
-            const isMatch = linkPath !== '/' && path.startsWith(linkPath);
+            // Match homepage exactly, all others by startsWith.
+            var isHome = linkPath === '/' && (path === '/' || path === '');
+            var isMatch = linkPath !== '/' && path.startsWith(linkPath);
 
             if (isHome || isMatch) {
                 link.classList.add('active');
@@ -23,77 +25,99 @@
         });
     }
 
-    // Run on DOM ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', setActiveNavLink);
-    } else {
-        setActiveNavLink();
+    function runWhenReady(callback) {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', callback);
+        } else {
+            callback();
+        }
     }
 
+    function closeDropdowns(exceptDropdown) {
+        document.querySelectorAll('.sfsc-nav .dropdown').forEach(function(dropdown) {
+            if (dropdown === exceptDropdown) return;
+            dropdown.classList.remove('show');
+        });
+
+        document.querySelectorAll('.sfsc-nav .dropdown-menu.show').forEach(function(menu) {
+            var dropdown = menu.closest('.dropdown');
+            if (dropdown === exceptDropdown) return;
+            menu.classList.remove('show');
+        });
+
+        document.querySelectorAll('.sfsc-nav .dropdown-toggle[aria-expanded="true"]').forEach(function(toggle) {
+            var dropdown = toggle.closest('.dropdown');
+            if (dropdown === exceptDropdown) return;
+            toggle.classList.remove('show');
+            toggle.setAttribute('aria-expanded', 'false');
+        });
+    }
+
+    function toggleDropdown(toggle, eventType) {
+        var dropdown = toggle.closest('.dropdown');
+        var menu = dropdown ? dropdown.querySelector('.dropdown-menu') : null;
+        if (!dropdown || !menu) return;
+
+        var isOpen = menu.classList.contains('show');
+
+        closeDropdowns(dropdown);
+
+        dropdown.classList.toggle('show', !isOpen);
+        menu.classList.toggle('show', !isOpen);
+        toggle.classList.toggle('show', !isOpen);
+        toggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+
+        if (eventType === 'touchstart' || eventType === 'pointerdown') {
+            lastDropdownTouchTime = Date.now();
+        }
+    }
+
+    function stopLibGuidesHandlers(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (typeof e.stopImmediatePropagation === 'function') {
+            e.stopImmediatePropagation();
+        }
+    }
+
+    function handleDropdownToggle(e) {
+        var toggle = e.target.closest('.sfsc-nav .dropdown-toggle');
+
+        if (toggle) {
+            stopLibGuidesHandlers(e);
+
+            // Mobile browsers often dispatch a synthetic click after touch/pointer.
+            if (e.type === 'click' && Date.now() - lastDropdownTouchTime < 700) {
+                return;
+            }
+
+            toggleDropdown(toggle, e.type);
+            return;
+        }
+
+        if (!e.target.closest('.sfsc-nav .dropdown')) {
+            closeDropdowns();
+        }
+    }
+
+    runWhenReady(setActiveNavLink);
     document.addEventListener('headerLoaded', setActiveNavLink);
 
-    function initDropdowns() {
-        document.querySelectorAll('.sfsc-nav .dropdown').forEach(function(dropdown) {
-            const toggle = dropdown.querySelector('.dropdown-toggle');
-            const menu = dropdown.querySelector('.dropdown-menu');
-            if (!toggle || !menu) return;
-
-            // Clone to remove any previously attached listeners
-            const newToggle = toggle.cloneNode(true);
-            toggle.parentNode.replaceChild(newToggle, toggle);
-
-            newToggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                const isOpen = menu.classList.contains('show');
-
-                // Close all dropdowns in the nav first
-                document.querySelectorAll('.sfsc-nav .dropdown-menu.show').forEach(function(m) {
-                    m.classList.remove('show');
-                });
-                document.querySelectorAll('.sfsc-nav [aria-expanded="true"]').forEach(function(t) {
-                    t.setAttribute('aria-expanded', 'false');
-                });
-
-                // If it was closed, open it
-                if (!isOpen) {
-                    menu.classList.add('show');
-                    newToggle.setAttribute('aria-expanded', 'true');
-                }
-            });
-        });
-
-        // Single outside-click handler to close all dropdowns
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.sfsc-nav .dropdown')) {
-                document.querySelectorAll('.sfsc-nav .dropdown-menu.show').forEach(function(m) {
-                    m.classList.remove('show');
-                });
-                document.querySelectorAll('.sfsc-nav [aria-expanded="true"]').forEach(function(t) {
-                    t.setAttribute('aria-expanded', 'false');
-                });
-            }
-        });
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initDropdowns);
-    } else {
-        initDropdowns();
-    }
-
-    window.addEventListener('load', initDropdowns);
-    document.addEventListener('headerLoaded', function() {
-        setTimeout(initDropdowns, 100);
+    // Capture before LibGuides' legacy Bootstrap/jQuery handlers can close the menu.
+    // Use touchstart only as a fallback because modern mobile browsers also fire pointerdown.
+    (window.PointerEvent ? ['pointerdown', 'click'] : ['touchstart', 'click']).forEach(function(eventName) {
+        document.addEventListener(eventName, handleDropdownToggle, true);
     });
 
-})();
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeDropdowns();
+        }
+    });
 
-<script>
-// Check if the URL contains 'bs5=1' as a query parameter
-if (window.location.search.includes('bs5=1')) {
-// Add the 'bs5-preview' class to the body element
-document.body.classList.add('bs5-preview');
-}
-</script>
+    runWhenReady(function() {
+        if (window.location.search.indexOf('bs5=1') !== -1) {
+            document.body.classList.add('bs5-preview');
+        }
+    });
+})();

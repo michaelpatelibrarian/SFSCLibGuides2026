@@ -281,12 +281,12 @@ header {
    ============================================================================= */
 
 /* JavaScript controlled with CSS hover fallback */
-.dropdown {
+.sfsc-nav .dropdown {
     position: relative;
 }
 
-.dropdown-menu {
-    display: none;
+.sfsc-nav .dropdown-menu {
+    display: none !important;
     position: absolute;
     top: 100%;
     left: 0;
@@ -305,15 +305,15 @@ header {
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.dropdown-menu.show {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
+.sfsc-nav .dropdown-menu.show {
+    display: block !important;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
 }
 
 /* CSS fallback — hover for desktop if JavaScript fails */
 @media (min-width: 992px) {
-    .dropdown:hover .dropdown-menu {
+    .sfsc-nav .dropdown:hover .dropdown-menu {
         display: block !important;
         opacity: 1 !important;
         transform: translateY(0) !important;
@@ -342,10 +342,10 @@ header {
 
 /* Mobile dropdown behavior */
 @media (max-width: 991px) {
-    .dropdown-menu {
-        position: static;
-        transform: none;
-        opacity: 1;
+    .sfsc-nav .dropdown-menu {
+        position: static !important;
+        transform: none !important;
+        opacity: 1 !important;
         background-color: #f8f8f8 !important;
         border: none;
         border-left: 3px solid var(--sfsc-orange);
@@ -354,8 +354,8 @@ header {
         transition: none;
     }
 
-    .dropdown-menu.show {
-        transform: none;
+    .sfsc-nav .dropdown-menu.show {
+        transform: none !important;
     }
 }
 
