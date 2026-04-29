@@ -1,7 +1,7 @@
 /* ============================================================
  * SFSC LibGuides — sfsccustom.css
- * Version: 1.3
- * Updated: 2026-04-24
+ * Version: 1.6
+ * Updated: 2026-04-29
  * ============================================================ */
 
 /* ============================================================
@@ -422,6 +422,39 @@ header {
 
 .s-lc-box-content a {
     color: #1e10e6;
+}
+
+/* Default guide content links */
+#s-lg-guide-main a {
+    color: var(--sfsc-blue) !important;
+}
+
+#s-lg-guide-main a:hover,
+#s-lg-guide-main a:focus-visible {
+    color: var(--sfsc-orange) !important;
+}
+
+/* Homepage sidebar links */
+#s-lib-public-main #col2 .txt a:not(.btn) {
+    color: var(--sfsc-blue) !important;
+}
+
+#s-lib-public-main #col2 .txt a:not(.btn):hover,
+#s-lib-public-main #col2 .txt a:not(.btn):focus-visible {
+    color: var(--sfsc-orange) !important;
+}
+
+#s-lib-public-main #col2 .nav-tabs > li.active > a,
+#s-lib-public-main #col2 .nav-tabs > li.active > a:hover,
+#s-lib-public-main #col2 .nav-tabs > li.active > a:focus {
+    color: #333 !important;
+}
+
+#s-lib-public-main #col2 .nav-pills > li.active > a,
+#s-lib-public-main #col2 .nav-pills > li.active > a:hover,
+#s-lib-public-main #col2 .nav-pills > li.active > a:focus {
+    color: #ffffff !important;
+    background-color: var(--sfsc-blue) !important;
 }
 
 /* BS5 card / BS3 panel heading */

@@ -146,12 +146,21 @@ The "ALL GUIDES / BY SUBJECT" tab bar on the guide list page uses this structure
 - The bar is styled to match the header nav: `var(--sfsc-blue)` background, 4px orange bottom border, orange active button with `#1a1a1a` text.
 - Do **not** use unscoped `.nav-pills .nav-link.active` rules — they bleed into LibGuides' own components. That legacy BS3 rule has been removed.
 
+## Link Color Overrides
+
+- LibGuides/Bootstrap default links can appear as teal/blue (`#337ab7` family). They may show up wherever custom CSS has not explicitly scoped link colors.
+- Individual guide content lives under `#s-lg-guide-main`; use `#s-lg-guide-main a { color: var(--sfsc-blue) !important; }` for guide-body links.
+- The homepage uses a different wrapper: `#s-lib-public-main`. Homepage sidebar widgets are in `#s-lib-public-main #col2 .txt`, so guide-page selectors will not affect them.
+- To recolor homepage sidebar links without breaking buttons, use `#s-lib-public-main #col2 .txt a:not(.btn)`.
+- Be careful with broad sidebar hover/focus rules. The LibCal hours widget Week/Month controls are also links inside `.txt`; active `.nav-pills` links need a more specific exception to keep readable white-on-blue text.
+
 ## LibCal Hours Widget (`#s-lc-fhw3652`)
 
 The LibCal hours widget (`hours_full.js`) generates BS3-style markup inside the BS5 page. Two nav components need CSS overrides:
 
 - **Hours of Operation / Location tabs** — generated as `<ul class="nav nav-tabs">` with `<li class="active"><a data-toggle="tab">`. BS5 renders the active `<li>` as a bordered box. Fix by resetting `border`, `border-radius`, and `background` on `#s-lc-fhw3652 .nav-tabs > li > a` and using a bottom-border underline for the active state.
 - **Week View / Month View pills** — generated as `<ul class="nav nav-pills s-lc-fhw-pills">` with `<li class="active"><a>`. BS5 bleeds a dark filled-button style onto the active item. Fix by overriding `#s-lc-fhw3652 .nav-pills > li.active > a` with `var(--sfsc-blue)` background.
+- If the hours widget appears in the homepage sidebar, `#s-lib-public-main #col2 .txt a` rules can override active pill text on hover/focus. Add a scoped exception such as `#s-lib-public-main #col2 .nav-pills > li.active > a { color: #ffffff !important; background-color: var(--sfsc-blue) !important; }`.
 - The widget uses `data-toggle="tab"` (BS3 syntax). Tab-switching still works because LibGuides ships jQuery/BS3 alongside BS5.
 - Always scope all rules to `#s-lc-fhw3652` to avoid bleeding into other LibGuides nav components.
 - See `libraryhours.html` for the working paste-ready snippet with all overrides.
