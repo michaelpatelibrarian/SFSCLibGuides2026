@@ -47,6 +47,20 @@
     color: #fff;
 }
 
+/* Pill search bar with a leading select (e.g. FOAL search) */
+.sfsc-primo-search .sfsc-search-select {
+    border-color: var(--sfsc-blue);
+    border-radius: 50rem 0 0 50rem;
+    border-right: none;
+    flex: 0 1 auto;
+    max-width: 11rem;
+}
+
+.sfsc-primo-search .sfsc-search-select + .sfsc-search-input {
+    border-radius: 0 !important;
+    border-left: none;
+}
+
 /* ============================================================
  * SFSC LibGuides — Combined Stylesheet
  * Merged from custom.css (branding/components) and styling.css (LibGuides overrides)

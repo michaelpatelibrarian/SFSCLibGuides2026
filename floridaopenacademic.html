@@ -1,0 +1,61 @@
+<div class="mb-3">
+  <img src="https://d2jv02qf7xgjwx.cloudfront.net/customers/3978/images/OpenFlorida_logo.png" alt="Open FL — Florida Academic Library Services Cooperative" class="img-fluid">
+</div>
+
+<form action="?" id="searchForm" onsubmit="return searchFOALKeyword('searchForm')"
+  aria-label="Florida Open Academic Library search">
+
+  <input type="hidden" id="foalBase" value="https://openlib.flvc.org/">
+  <input type="hidden" id="foalInstGroup" value="ux">
+
+  <label for="searchInput" class="visually-hidden">Search Florida Open Academic Library</label>
+  <div class="input-group sfsc-primo-search">
+    <label for="catsearchkeyword" class="visually-hidden">Search by</label>
+    <select id="catsearchkeyword" name="keyword" class="form-select sfsc-search-select" aria-label="Search index">
+      <option value="kw" selected>Keyword</option>
+      <option value="ti">Title</option>
+      <option value="jt">Journal Title</option>
+      <option value="au">Author</option>
+      <option value="su">Subject Heading</option>
+      <option value="si">Series</option>
+      <option value="nu">ISBN, ISSN, OCLC, etc.</option>
+      <option value="cn">Call Number</option>
+    </select>
+    <input type="search" id="searchInput" name="searchInput" class="form-control sfsc-search-input"
+      placeholder="Search the Florida Open Academic Library"
+      aria-label="Search the Florida Open Academic Library">
+    <button type="submit" class="btn btn-sfsc-search">Search</button>
+  </div>
+</form>
+
+<script>
+(function () {
+  var base64_encoding_map = { "=": "PQ==", "/": "Lw==", "\\": "XA==", "?": "Pw==" };
+
+  function escapeRegExp(string) {
+    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+  }
+
+  window.searchFOALKeyword = function (formId) {
+    var form = document.getElementById(formId);
+    var foalBaseURL = form.elements["foalBase"].value;
+    var foalInstGroup = form.elements["foalInstGroup"].value;
+    var searchInput = form.elements["searchInput"].value;
+    var keywordIndexSelect = form.elements["catsearchkeyword"];
+    var keywordIndex = keywordIndexSelect
+      ? keywordIndexSelect[keywordIndexSelect.selectedIndex].value
+      : "kw";
+
+    for (var specialChar in base64_encoding_map) {
+      var base64Regex = new RegExp(escapeRegExp(specialChar), "g");
+      searchInput = searchInput.replace(base64Regex, base64_encoding_map[specialChar]);
+    }
+
+    window.open(
+      foalBaseURL + foalInstGroup + ".jsp?ix=" + keywordIndex + "&st=" + encodeURIComponent(searchInput) + "&fl=bo",
+      "_blank"
+    );
+    return false;
+  };
+}());
+</script>

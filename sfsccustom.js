@@ -53,6 +53,30 @@
         });
     }
 
+    function normalizeSearchResultSummary() {
+        var searchContent = document.querySelector('#s-lg-srch-content');
+        if (!searchContent) return;
+
+        var walker = document.createTreeWalker(searchContent, NodeFilter.SHOW_TEXT);
+        var node;
+
+        while ((node = walker.nextNode())) {
+            node.nodeValue = node.nodeValue.replace(/\bPages\s+,/g, 'Pages,');
+        }
+    }
+
+    function observeSearchResults() {
+        var searchContent = document.querySelector('#s-lg-srch-content');
+        if (!searchContent || typeof MutationObserver === 'undefined') return;
+
+        normalizeSearchResultSummary();
+
+        new MutationObserver(normalizeSearchResultSummary).observe(searchContent, {
+            childList: true,
+            subtree: true
+        });
+    }
+
     function toggleDropdown(toggle, eventType) {
         var dropdown = toggle.closest('.dropdown');
         var menu = dropdown ? dropdown.querySelector('.dropdown-menu') : null;
@@ -101,6 +125,7 @@
     }
 
     runWhenReady(setActiveNavLink);
+    runWhenReady(observeSearchResults);
     document.addEventListener('headerLoaded', setActiveNavLink);
 
     // Capture before LibGuides' legacy Bootstrap/jQuery handlers can close the menu.

@@ -41,6 +41,7 @@ Code is never edited on the server directly. All changes are submitted through t
 | `Bootstrap 5 Template.pdf` | Accessibility evaluation (4/3/2026) |
 | `primosearchbox.html` | Primo catalog search widget (paste into LibGuides content box) |
 | `scholarsearchbox.html` | Google Scholar search widget — same pill style as Primo box (paste into LibGuides content box) |
+| `floridaopenacademic.html` | Florida Open Academic Library (FOAL/FALSC) search widget — pill style with leading search-type select; FALSC logo above form (paste into LibGuides content box) |
 | `childrenslitnavbar.html` | Sample of LibGuides-generated side nav HTML (reference for CSS targeting) |
 | `homepagelist.html` | Actual LibGuides-generated HTML for the guide list page (ALL GUIDES / BY SUBJECT tab bar) |
 | `libraryhours.html` | LibCal hours widget embed — paste into a LibGuides HTML content box |
@@ -153,6 +154,14 @@ The "ALL GUIDES / BY SUBJECT" tab bar on the guide list page uses this structure
 - The homepage uses a different wrapper: `#s-lib-public-main`. Homepage sidebar widgets are in `#s-lib-public-main #col2 .txt`, so guide-page selectors will not affect them.
 - To recolor homepage sidebar links without breaking buttons, use `#s-lib-public-main #col2 .txt a:not(.btn)`.
 - Be careful with broad sidebar hover/focus rules. The LibCal hours widget Week/Month controls are also links inside `.txt`; active `.nav-pills` links need a more specific exception to keep readable white-on-blue text.
+
+## Search Results Page
+
+- LibGuides renders search results asynchronously into `#s-lg-srch-content`; the initial page source does not contain the final result summary line.
+- The generated summary can include an unwanted space before the comma: `Showing 20 of 158 Pages , Sorted By`.
+- `sfsccustom.js` fixes this with `normalizeSearchResultSummary()`, which walks text nodes in `#s-lg-srch-content` and replaces `/\bPages\s+,/g` with `Pages,`.
+- `observeSearchResults()` attaches a `MutationObserver` to `#s-lg-srch-content` so the cleanup reruns after initial AJAX render, sorting, pagination, or filter changes.
+- This is a JavaScript fix, not CSS, because the extra space is literal generated text rather than spacing between styleable elements.
 
 ## LibCal Hours Widget (`#s-lc-fhw3652`)
 
