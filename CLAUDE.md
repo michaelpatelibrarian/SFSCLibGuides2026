@@ -45,6 +45,7 @@ Code is never edited on the server directly. All changes are submitted through t
 | `childrenslitnavbar.html` | Sample of LibGuides-generated side nav HTML (reference for CSS targeting) |
 | `homepagelist.html` | Actual LibGuides-generated HTML for the guide list page (ALL GUIDES / BY SUBJECT tab bar) |
 | `libraryhours.html` | LibCal hours widget embed — paste into a LibGuides HTML content box |
+| `sidebardatehead.html` | Focused LibCal sidebar widget snippet used for date-label contrast fixes |
 | `hourswidget.html` | Full rendered HTML output of the LibCal widget (reference for CSS targeting) |
 
 ## Guidelines
@@ -170,6 +171,7 @@ The LibCal hours widget (`hours_full.js`) generates BS3-style markup inside the 
 - **Hours of Operation / Location tabs** — generated as `<ul class="nav nav-tabs">` with `<li class="active"><a data-toggle="tab">`. BS5 renders the active `<li>` as a bordered box. Fix by resetting `border`, `border-radius`, and `background` on `#s-lc-fhw3652 .nav-tabs > li > a` and using a bottom-border underline for the active state.
 - **Week View / Month View pills** — generated as `<ul class="nav nav-pills s-lc-fhw-pills">` with `<li class="active"><a>`. BS5 bleeds a dark filled-button style onto the active item. Fix by overriding `#s-lc-fhw3652 .nav-pills > li.active > a` with `var(--sfsc-blue)` background.
 - If the hours widget appears in the homepage sidebar, `#s-lib-public-main #col2 .txt a` rules can override active pill text on hover/focus. Add a scoped exception such as `#s-lib-public-main #col2 .nav-pills > li.active > a { color: #ffffff !important; background-color: var(--sfsc-blue) !important; }`.
+- Weekly date labels use `.s-lc-whw-head-date`. Springshare's default gray (`#999` / `#999999`) fails WCAG AA on white at small text size. Set the color inside the widget's own `<style>` block to `#555555` (`.s-lc-whw-head-date { color: #555555; }`) rather than relying only on `sfsccustom.css`, because the accessibility checker may inspect the widget snippet/output directly.
 - The widget uses `data-toggle="tab"` (BS3 syntax). Tab-switching still works because LibGuides ships jQuery/BS3 alongside BS5.
 - Always scope all rules to `#s-lc-fhw3652` to avoid bleeding into other LibGuides nav components.
 - See `libraryhours.html` for the working paste-ready snippet with all overrides.
