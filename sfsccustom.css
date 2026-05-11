@@ -438,6 +438,26 @@ header {
     color: #1e10e6;
 }
 
+/* Content box body text links (p a scoping excludes LibGuides link-list boxes) */
+.s-lib-box-content p a {
+    color: #007698;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    text-decoration-skip-ink: auto;
+}
+
+.s-lib-box-content p a:hover {
+    color: var(--sfsc-orange);
+    text-decoration-thickness: 2px;
+}
+
+.s-lib-box-content p a:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
 /* Default guide content links */
 #s-lg-guide-main a {
     color: var(--sfsc-blue) !important;

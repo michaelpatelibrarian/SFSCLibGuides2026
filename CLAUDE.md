@@ -156,6 +156,20 @@ The "ALL GUIDES / BY SUBJECT" tab bar on the guide list page uses this structure
 - To recolor homepage sidebar links without breaking buttons, use `#s-lib-public-main #col2 .txt a:not(.btn)`.
 - Be careful with broad sidebar hover/focus rules. The LibCal hours widget Week/Month controls are also links inside `.txt`; active `.nav-pills` links need a more specific exception to keep readable white-on-blue text.
 
+## Body Text Link Styling
+
+- `text-underline-offset: 0.2em` and `text-decoration-thickness` are both scoped per context — do not apply either globally. LibGuides generates links in nav components and other UI elements that should not have underlines; a global `a` rule surfaces underlines on elements that don't need them.
+- **Use `p a` to distinguish body text links from LibGuides link-list boxes.** LibGuides generates two structurally different link types: body text links land in `<p>` tags; navigation-style link boxes (app guides, resource lists, etc.) generate `<ul><li><a>` markup. Scoping to `p a` targets only inline prose links and leaves list-style links untouched — no class inspection needed.
+- Content box links use `.s-lib-box-content p a` — scoped to `p` to exclude LibGuides link-list boxes (which are `<ul><li><a>` and should not be underlined). The full treatment:
+  - Color: `#007698` (Cerulean) — the only SFSC brand palette color that passes WCAG AA on white (5.19:1)
+  - `text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; text-decoration-skip-ink: auto`
+  - Hover: `color: var(--sfsc-orange); text-decoration-thickness: 2px` — dual cue (color + weight), not color alone
+  - Focus-visible: `outline: 2px solid currentColor; outline-offset: 2px; border-radius: 2px` — keyboard users get a clear ring
+- **SFSC palette WCAG AA contrast on white** (for future link color decisions):
+  - `#007698` Cerulean — 5.19:1 **PASS**
+  - `#333366` Twilight Indigo — ~10.7:1 **PASS**
+  - All other brand palette colors (`#F37B20`, `#508FCC`, `#00B0AF`, `#00928F`, `#8BC53F`, `#4C901D`, `#FFC121`, `#FFEDBA`) fail 4.5:1 for normal-size body text.
+
 ## Search Results Page
 
 - LibGuides renders search results asynchronously into `#s-lg-srch-content`; the initial page source does not contain the final result summary line.
