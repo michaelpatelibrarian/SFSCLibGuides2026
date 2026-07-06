@@ -84,6 +84,13 @@ When a CSS fix has no visible effect, suspect that LibGuides' system stylesheet 
 - Always scope header nav rules to `.sfsc-nav .sfsc-nav-link` (two-class specificity) to beat LibGuides' own `.nav-link` overrides.
 - The nav has **two dropdowns**: Resources (Research Guides, A-Z Databases, Citation Style Guides, Library Catalog, Laptop Borrowing, Ask a Librarian) and Services (Study Rooms, Tutoring, Writing Center, Open Educational Resources, Panther Pathways).
 
+## Skip Link
+
+- The skip link in `header.html` ships with `href="#s-lg-guide-main"`, but Springshare generates a different main-content ID per page type: `#s-lg-guide-main` on guide pages, `#s-lib-public-main` on the homepage/guide list. We cannot edit that generated markup.
+- `fixSkipLink()` in `sfsccustom.js` resolves the target at load: it points the link at the first candidate ID that exists on the page and adds `tabindex="-1"` to the target so focus moves reliably.
+- On page types where no candidate ID exists (e.g. uncataloged Springshare pages), the function hides our skip link instead of leaving it dead — LibGuides' native `#s-lg-public-skiplink` still provides the skip.
+- Verified against the live site (2026-07-06): guide pages (`/laptops`, `/oer`) use `#s-lg-guide-main`; the homepage, subject landing pages (`/writing`), A-Z Databases (`/az/databases`), and search results (`/srch.php`) all use `#s-lib-public-main`. Both IDs ship with `tabindex="-1"` already. All known page types are covered by the two candidates.
+
 ## Nav Bar — Hamburger Icon
 
 - The hamburger SVG must be set on `.sfsc-nav-toggler .navbar-toggler-icon`, **not** on `.sfsc-nav-toggler` (the button). Bootstrap renders the icon through the inner `<span>`, not the button background. Setting `background-image` on the button causes a large boxy icon on mobile.

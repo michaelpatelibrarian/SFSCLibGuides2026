@@ -153,6 +153,13 @@ header {
     top: 0;
 }
 
+/* Skip-link targets get tabindex="-1" from fixSkipLink() in sfsccustom.js;
+   no focus ring around the whole main region when the link is followed */
+#s-lg-guide-main:focus,
+#s-lib-public-main:focus {
+    outline: none;
+}
+
 /* SFSC header wrapper */
 .sfsc-header {
     background-color: var(--sfsc-blue);

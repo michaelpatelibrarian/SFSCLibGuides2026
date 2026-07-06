@@ -53,6 +53,37 @@
         });
     }
 
+    // Springshare generates a different main-content ID per page type and we
+    // cannot edit that markup, so resolve the skip link target at load time.
+    // On unknown page types, hide our skip link rather than ship a dead one —
+    // LibGuides' native #s-lg-public-skiplink is still there.
+    function fixSkipLink() {
+        var skipLink = document.querySelector('.sfsc-skip-link');
+        if (!skipLink) return;
+
+        var candidateIds = ['s-lg-guide-main', 's-lib-public-main'];
+        var target = null;
+
+        for (var i = 0; i < candidateIds.length; i++) {
+            target = document.getElementById(candidateIds[i]);
+            if (target) break;
+        }
+
+        if (!target) {
+            skipLink.hidden = true;
+            return;
+        }
+
+        skipLink.hidden = false;
+        skipLink.setAttribute('href', '#' + target.id);
+
+        // Ensure focus actually moves when the link is followed (LibGuides
+        // already does this on its own <main> on some pages).
+        if (!target.hasAttribute('tabindex')) {
+            target.setAttribute('tabindex', '-1');
+        }
+    }
+
     function normalizeSearchResultSummary() {
         var searchContent = document.querySelector('#s-lg-srch-content');
         if (!searchContent) return;
@@ -125,8 +156,10 @@
     }
 
     runWhenReady(setActiveNavLink);
+    runWhenReady(fixSkipLink);
     runWhenReady(observeSearchResults);
     document.addEventListener('headerLoaded', setActiveNavLink);
+    document.addEventListener('headerLoaded', fixSkipLink);
 
     // Capture before LibGuides' legacy Bootstrap/jQuery handlers can close the menu.
     // Use touchstart only as a fallback because modern mobile browsers also fire pointerdown.
