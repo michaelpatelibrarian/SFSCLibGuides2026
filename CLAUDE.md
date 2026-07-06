@@ -163,12 +163,21 @@ The "ALL GUIDES / BY SUBJECT" tab bar on the guide list page uses this structure
 - Content box links use `.s-lib-box-content p a` — scoped to `p` to exclude LibGuides link-list boxes (which are `<ul><li><a>` and should not be underlined). The full treatment:
   - Color: `#007698` (Cerulean) — the only SFSC brand palette color that passes WCAG AA on white (5.19:1)
   - `text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; text-decoration-skip-ink: auto`
-  - Hover: `color: var(--sfsc-orange); text-decoration-thickness: 2px` — dual cue (color + weight), not color alone
+  - Hover: `color: var(--sfsc-orange-dark); text-decoration-thickness: 2px` — dual cue (color + weight), not color alone
   - Focus-visible: `outline: 2px solid currentColor; outline-offset: 2px; border-radius: 2px` — keyboard users get a clear ring
 - **SFSC palette WCAG AA contrast on white** (for future link color decisions):
   - `#007698` Cerulean — 5.19:1 **PASS**
   - `#333366` Twilight Indigo — ~10.7:1 **PASS**
   - All other brand palette colors (`#F37B20`, `#508FCC`, `#00B0AF`, `#00928F`, `#8BC53F`, `#4C901D`, `#FFC121`, `#FFEDBA`) fail 4.5:1 for normal-size body text.
+
+## Orange as a Text Color — Use the Derived Tokens
+
+Full-strength SFSC orange `#F37B20` is **decorative only** (borders, accent bars, background tints). As a text color it fails WCAG AA everywhere: 2.74:1 on white, 4.24:1 on `--sfsc-blue`, 2.74:1 with white text on it. The legacy `--sfsc-orange-strong: #c95c07` from the BS3 homepage also fails (4.19:1) — do not reuse it. `sfsccustom.css` defines two AA-safe derivatives:
+
+- `--sfsc-orange-dark: #B45309` — orange text/hover on white or light backgrounds (5.02:1); also the button hover fill with white text (5.02:1)
+- `--sfsc-orange-light: #F9A55F` — orange text/hover on `--sfsc-blue` backgrounds, e.g. footer links (5.86:1)
+
+All hover states (guide-body links, content-box links, homepage sidebar links, `.btn-primary`/`.btn-info`, footer links, `.sfsc-library-link`) use these tokens. Never use `var(--sfsc-orange)` directly for text or hover text.
 
 ## Search Results Page
 

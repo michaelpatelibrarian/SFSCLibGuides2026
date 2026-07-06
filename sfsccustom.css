@@ -1,7 +1,7 @@
 /* ============================================================
  * SFSC LibGuides — sfsccustom.css
- * Version: 1.6
- * Updated: 2026-04-29
+ * Version: 1.7
+ * Updated: 2026-07-06
  * ============================================================ */
 
 /* ============================================================
@@ -74,8 +74,10 @@
    Variables
    ============================================================================= */
 :root {
-    --sfsc-orange: #F37B20; /* PMS 166 RGB: 243-123-32 */
-    --sfsc-blue: #333366;   /* PMS 295 RGB: 51-51-102 */
+    --sfsc-orange: #F37B20;      /* PMS 166 RGB: 243-123-32 — decorative use only; 2.74:1 on white fails WCAG AA for text */
+    --sfsc-orange-dark: #B45309; /* AA-safe orange for text on white / white text on it (5.02:1) */
+    --sfsc-orange-light: #F9A55F;/* AA-safe orange for text on --sfsc-blue (5.86:1) */
+    --sfsc-blue: #333366;        /* PMS 295 RGB: 51-51-102 */
 }
 
 /* =============================================================================
@@ -194,7 +196,7 @@ header {
 }
 
 .sfsc-library-link:hover {
-    color: var(--sfsc-orange) !important;
+    color: var(--sfsc-orange-dark) !important;
 }
 
 /* Seasonal/special header variants */
@@ -448,7 +450,7 @@ header {
 }
 
 .s-lib-box-content p a:hover {
-    color: var(--sfsc-orange);
+    color: var(--sfsc-orange-dark);
     text-decoration-thickness: 2px;
 }
 
@@ -465,7 +467,7 @@ header {
 
 #s-lg-guide-main a:hover,
 #s-lg-guide-main a:focus-visible {
-    color: var(--sfsc-orange) !important;
+    color: var(--sfsc-orange-dark) !important;
 }
 
 /* Homepage sidebar links */
@@ -475,7 +477,7 @@ header {
 
 #s-lib-public-main #col2 .txt a:not(.btn):hover,
 #s-lib-public-main #col2 .txt a:not(.btn):focus-visible {
-    color: var(--sfsc-orange) !important;
+    color: var(--sfsc-orange-dark) !important;
 }
 
 #s-lib-public-main #col2 .nav-tabs > li.active > a,
@@ -575,13 +577,14 @@ header {
     border-color: #333366 !important;
 }
 
+/* White on full-strength orange is only 2.74:1 — use the darkened orange (5.02:1) */
 .btn-info:hover,
 .btn-info:focus,
 .btn-primary:hover,
 .btn-primary:focus {
     color: #fff !important;
-    background-color: #f37b20 !important;
-    border-color: #f37b20 !important;
+    background-color: var(--sfsc-orange-dark) !important;
+    border-color: var(--sfsc-orange-dark) !important;
 }
 
 .btn-outline-info,
@@ -648,7 +651,7 @@ header {
 }
 
 .sfsc-footer-content a:hover {
-    color: var(--sfsc-orange);
+    color: var(--sfsc-orange-light);
     text-decoration: underline;
 }
 
@@ -672,7 +675,7 @@ header {
 }
 
 .sfsc-footer-social:hover {
-    color: var(--sfsc-orange);
+    color: var(--sfsc-orange-light);
 }
 
 /* Institutional strip at the very bottom — white so logo sits correctly */
@@ -689,7 +692,7 @@ header {
 }
 
 .sfsc-footer-institutional a:hover {
-    color: var(--sfsc-orange);
+    color: var(--sfsc-orange-dark);
 }
 
 /* Full-color logo on white — no filter needed */
