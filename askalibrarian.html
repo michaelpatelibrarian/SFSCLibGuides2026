@@ -1,0 +1,26 @@
+<!--
+  Ask a Librarian help box — paste into a LibGuides Rich Text/HTML content box.
+  Replaces the askalibrarian.org iframe widget (sfsc2013 build), whose orange
+  buttons fail WCAG AA (white on #ec971f ≈ 2.3:1) and which we cannot restyle
+  (cross-origin iframe).
+
+  Buttons use .btn-primary from sfsccustom.css: white on --sfsc-blue,
+  hover white on --sfsc-orange-dark — both pass WCAG AA.
+  Box title (e.g. "Need a Little Help?") comes from the LibGuides box, not this snippet.
+  No wrapper needed to hide on mobile — unlike the iframe, these buttons work at any width.
+-->
+<div class="d-grid gap-2">
+  <a class="btn btn-primary" href="https://tblc.libanswers.com/chat/widget/632b6f9de1f116ecc3ae72cd52c58cdf" target="_blank" rel="noopener">
+    <i class="fas fa-comments" aria-hidden="true"></i>
+    Chat with us<span class="visually-hidden"> (opens in a new window)</span>
+  </a>
+  <a class="btn btn-primary" href="https://www.askalibrarian.org/sms.php/?LibraryName=South%20Florida%20State%20College&amp;DepartmentNumber=22524&amp;sms=8635882132" target="_blank" rel="noopener">
+    <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+    Text us<span class="visually-hidden"> (opens in a new window)</span>
+  </a>
+  <a class="btn btn-primary" href="https://www.askalibrarian.org/email.php?id=1725" target="_blank" rel="noopener">
+    <i class="fas fa-envelope" aria-hidden="true"></i>
+    Email us<span class="visually-hidden"> (opens in a new window)</span>
+  </a>
+</div>
+<p class="small text-center mt-2 mb-0">Or text us directly: <a href="sms:+18635882132">(863) 588-2132</a></p>

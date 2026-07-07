@@ -27,6 +27,7 @@ Code is never edited on the server directly. All changes are submitted through t
 
 | File | Purpose |
 |------|---------|
+| `DESIGN.md` | Design system: brand colors + verified WCAG ratios, typography, components, logo rules (supersedes the Visual Identity Guide PDF for this project) |
 | `sfsccustom.css` | Bootstrap 5 custom style overrides |
 | `sfsccustom.js` | JavaScript for new BS5 header nav and active page detection |
 | `header.html` | New BS5 header |
@@ -36,7 +37,6 @@ Code is never edited on the server directly. All changes are submitted through t
 | `newhomepage-bs5.html` | Upcoming BS5 homepage |
 | `oldhomepage-bs3.html` | Current BS3 homepage (reference) |
 | `boxandtabcoloroptions.png` | Current LibGuides color settings |
-| `Visual Identity Guide 04.25.2025.pdf` | SFSC visual/brand standards |
 | `april2026releasenotes.md` | LibGuides April 2026 release notes |
 | `Bootstrap 5 Template.pdf` | Accessibility evaluation (4/3/2026) |
 | `primosearchbox.html` | Primo catalog search widget (paste into LibGuides content box) |
@@ -44,6 +44,7 @@ Code is never edited on the server directly. All changes are submitted through t
 | `floridaopenacademic.html` | Florida Open Academic Library (FOAL/FALSC) search widget — pill style with leading search-type select; FALSC logo above form (paste into LibGuides content box) |
 | `childrenslitnavbar.html` | Sample of LibGuides-generated side nav HTML (reference for CSS targeting) |
 | `homepagelist.html` | Actual LibGuides-generated HTML for the guide list page (ALL GUIDES / BY SUBJECT tab bar) |
+| `askalibrarian.html` | Ask a Librarian help box (chat/text/email buttons) — replaces the inaccessible askalibrarian.org iframe widget (paste into LibGuides content box) |
 | `libraryhours.html` | LibCal hours widget embed — paste into a LibGuides HTML content box |
 | `sidebardatehead.html` | Focused LibCal sidebar widget snippet used for date-label contrast fixes |
 | `hourswidget.html` | Full rendered HTML output of the LibCal widget (reference for CSS targeting) |
@@ -53,7 +54,7 @@ Code is never edited on the server directly. All changes are submitted through t
 - Use Bootstrap 5.3.0 classes and components — do not use BS3 patterns.
 - All UI must meet WCAG 2.1 Level AA: proper heading hierarchy, sufficient color contrast, ARIA labels on interactive elements, keyboard navigability.
 - When migrating BS3 → BS5: replace deprecated classes (e.g., `hidden-xs` → `d-none d-sm-block`), update grid system, replace `.panel` with `.card`, update form classes.
-- Follow SFSC visual identity standards (see `Visual Identity Guide 04.25.2025.pdf`) for colors, typography, and logo usage. Except we are going to use the Poppins font for now,}
+- Follow SFSC visual identity standards (see `DESIGN.md`) for colors, typography, and logo usage. We use the Poppins font for the web presence.
 - Output clean, paste-ready HTML/CSS/JS snippets — no build tools, no npm dependencies.
 
 ## CSS Scoping — Critical
