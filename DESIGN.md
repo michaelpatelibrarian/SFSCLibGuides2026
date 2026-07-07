@@ -277,3 +277,45 @@ Example prompts:
 - "Add a card matching DESIGN.md §4 content boxes with a title bar and two prose links."
 - "Create a paste-ready LibGuides content box with a pill search form per DESIGN.md §4."
 - "Style this widget's tabs like the guide-list tab bar (§4 buttons row)."
+
+## 12. LibGuides CMS Look & Feel Settings (reference)
+
+The values configured in the LibGuides admin (Look & Feel → Design Settings). This is the
+site baseline that renders even where `sfsccustom.css` doesn't reach. Verified live via
+`https://libguides.southflorida.edu/lookfeel.css` on 2026-07-07. If the panel ever needs to
+be reconstructed, re-enter these values.
+
+**Design Settings:** Lock all guides with this design (override individual guide settings).
+**Layout:** container max-width 1440px.
+**Favicon:** `<link rel="icon" href="https://libapps.s3.amazonaws.com/customers/3978/images/favicon.ico" sizes="any">`
+
+**Text** — all Poppins, all font color `#181c32`:
+
+| Element | Size | Style |
+|---|---|---|
+| Paragraph | 16px | Normal |
+| H1 | 32px | Bold |
+| H2 | 26px | Semi Bold |
+| H3 | 24px | Medium |
+| H4 | 20px | Semi Bold |
+| H5 | 18px | Semi Bold |
+| H6 | 16px | Medium |
+
+**Links** — Underlined: Yes. Default `#007698` · Hover `#B45309` · Visited `#46166B`.
+
+**Buttons** — all Rounded:
+
+| Variant | Size/Style | Rest | Hover |
+|---|---|---|---|
+| Primary | 16px Medium | `#ffffff` on `#333366` | `#ffffff` on `#B45309` |
+| Secondary | 16px Normal | `#ffffff` on `#3c3c77` | `#ffffff` on `#4d4d99` |
+| Light | 16px Normal | `#000000` on `#f8f9fa` | `#0c4376` on `#f9f9f9` |
+
+**Tabs (guides)** — Shape Rounded. Default `#000000` on `#eaeaef` · Active `#000000` on `#f37b20`
+(dark text *on* orange passes AA at 7.66:1 — this is the approved use of full orange as a background).
+
+**Boxes (guides)** — Shape Squared, border 1px `#dee2e6`, background `#ffffff`,
+header background `#f8f9fa`, header font `#333366`.
+
+> Hand-entry warning: hex typos here have shipped twice (`#B45309` → `#045309`, `#B54309`).
+> Copy-paste values; don't retype them.
