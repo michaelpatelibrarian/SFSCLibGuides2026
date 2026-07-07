@@ -170,6 +170,17 @@
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closeDropdowns();
+            return;
+        }
+
+        // role="button" on the toggles promises Space activation
+        // (Enter already works because links fire click on Enter).
+        if (e.key === ' ' || e.key === 'Spacebar') {
+            var toggle = e.target.closest('.sfsc-nav .dropdown-toggle');
+            if (toggle) {
+                stopLibGuidesHandlers(e); // preventDefault also stops the page scroll
+                toggleDropdown(toggle, e.type);
+            }
         }
     });
 

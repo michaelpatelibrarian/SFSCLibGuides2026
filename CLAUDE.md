@@ -105,6 +105,7 @@ When a CSS fix has no visible effect, suspect that LibGuides' system stylesheet 
 - `e.preventDefault()`, `e.stopPropagation()`, and `e.stopImmediatePropagation()` are required on dropdown toggle events. Without them, LibGuides' outside-click and legacy dropdown handlers can immediately close the menu.
 - Future dropdown JS must scope menu lookup to the toggle's own parent dropdown: `toggle.closest('.dropdown').querySelector('.dropdown-menu')`. Do not use `document.querySelector('.dropdown-menu')`, which always finds the first menu.
 - Keep dropdown CSS scoped and strong: use `.sfsc-nav .dropdown-menu { display: none !important; }` and `.sfsc-nav .dropdown-menu.show { display: block !important; }`. Generic `.dropdown-menu` rules can bleed into LibGuides components and may lose to LibGuides system CSS.
+- The toggles are `<a role="button">`, so the keydown listener must handle the Space key (toggle + `preventDefault` to stop page scroll). Enter needs no special handling — links fire `click` on Enter.
 - **Resolved issue (2026-04-28):** Resources and Services did not open on mobile because the JS only handled `click` and the CSS `.show` state was not specific enough. The working fix is capture-phase `pointerdown` handling plus scoped `!important` dropdown visibility rules in `sfsccustom.css`.
 
 ## Images in Content Boxes
