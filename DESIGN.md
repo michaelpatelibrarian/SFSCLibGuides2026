@@ -89,12 +89,15 @@ on white.**
 ## 3. Typography Rules
 
 - **Primary face:** Poppins — project decision for the web presence.
-  Stack: `Poppins, Arial, sans-serif`.
+  Stack: `Poppins, Arial, sans-serif`. Loaded weights: 400 / 500 / 600 / 700 + italic
+  400 / 700 (see `headincludes.html`) — don't style with weights outside that set.
 - **Print-guide faces (context only):** the logo is set in Minion Pro Semibold ("South Florida")
   and Gibson Regular ("State College"); approved office fallbacks are Arial, Calibri, Constantia,
   Georgia. Do not recreate the logo in type.
-- **Readability utility (`.readability`):** Lexend, 20px/26px, weight 600 — used for
-  easy-reading content blocks.
+- **Readability utility (`.readability`):** Lexend, 20px/26px, weight 600 — easy-reading
+  content blocks in guides. Lexend is purpose-built for reading proficiency (a deliberate
+  accessibility feature) and is genuinely loaded (weights 400/600) via the fonts `<link>`
+  in the Look & Feel CSS block — see `headincludes.html`. Falls back to Poppins.
 
 | Element | Size | Weight | Notes |
 |---|---|---|---|

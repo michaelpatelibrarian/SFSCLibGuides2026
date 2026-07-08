@@ -30,6 +30,7 @@ Code is never edited on the server directly. All changes are submitted through t
 |------|---------|
 | `PRODUCT.md` | Strategic context: register, users, purpose, design principles (read by design tooling) |
 | `DESIGN.md` | Design system: brand colors + verified WCAG ratios, typography, components, logo rules (supersedes the Visual Identity Guide PDF for this project) |
+| `headincludes.html` | Look & Feel CSS-block contents: preconnects, Google Fonts (Poppins + Lexend), sfsccustom.css include (source of truth for the CMS field) |
 | `sfsccustom.css` | Bootstrap 5 custom style overrides |
 | `sfsccustom.js` | JavaScript for new BS5 header nav and active page detection |
 | `header.html` | New BS5 header |
@@ -75,6 +76,7 @@ When a CSS fix has no visible effect, suspect that LibGuides' system stylesheet 
 ## LibGuides Look & Feel — Paste Fields
 
 - CSS field accepts raw CSS — no `<style>` tags needed. If pasting into an HTML field, `@import` must be the first line inside `<style>`.
+- The CSS block also holds the font/stylesheet `<link>` lines (preconnects, Google Fonts, sfsccustom.css include) — `headincludes.html` is the source of truth. The fonts link loads **Poppins + Lexend**; removing `family=Lexend` silently breaks the `.readability` utility used in guide content.
 - All three fields (Header HTML, CSS, JS) can get wiped together by a LibGuides CMS bug. If the page breaks, check all three.
 - After pasting, always hard refresh (Ctrl+Shift+R) to bypass browser cache.
 - The A-Z Databases page has its own separate Look & Feel settings — CSS/JS must be pasted there independently.

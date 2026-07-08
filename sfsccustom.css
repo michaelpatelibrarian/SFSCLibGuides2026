@@ -1,6 +1,6 @@
 /* ============================================================
  * SFSC LibGuides — sfsccustom.css
- * Version: 1.8
+ * Version: 1.9
  * Updated: 2026-07-08
  * ============================================================ */
 
@@ -619,14 +619,15 @@ header {
 /* =============================================================================
    Readability Utility
    ============================================================================= */
+/* Lexend is loaded by the fonts <link> in the Look & Feel CSS block (headincludes.html) */
 .readability {
-    font-family: Lexend, Source Sans Pro, Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-family: Lexend, Poppins, Arial, sans-serif;
     font-weight: 600;
     font-size: 20px;
     line-height: 26px;
-    border-bottom: 3px solid #c2c2c2;
+    border-bottom: 1px solid var(--sfsc-border);
     width: auto;
-    background-color: #f3f3f3;
+    background-color: var(--sfsc-surface);
     color: #3a3a3a;
 }
 
