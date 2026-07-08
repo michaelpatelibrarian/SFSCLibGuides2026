@@ -42,11 +42,12 @@ These files contain actual HTML output from LibGuides, used to write accurate CS
 
 | File | Purpose |
 |------|---------|
-| `Visual Identity Guide 04.25.2025.pdf` | SFSC brand standards (colors, typography, logo usage) |
+| `DESIGN.md` | Design system: brand colors + verified WCAG ratios, typography, components, logo rules |
+| `PRODUCT.md` | Strategic context: users, purpose, design principles |
 | `april2026releasenotes.md` | LibGuides April 2026 release notes |
 | `SFSC LibGuides - Bootstrap 5 Template.pdf` | Accessibility evaluation (4/3/2026) |
 | `boxandtabcoloroptions.png` | LibGuides color settings screenshot |
-| `CLAUDE.md` | AI assistant guidance for this project |
+| `AGENTS.md` | AI agent guidance for this project (`CLAUDE.md` just imports it) |
 
 ## Stack
 
