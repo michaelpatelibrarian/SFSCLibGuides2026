@@ -1,14 +1,14 @@
 /* ============================================================
  * SFSC LibGuides — sfsccustom.css
- * Version: 1.7
- * Updated: 2026-07-06
+ * Version: 1.8
+ * Updated: 2026-07-08
  * ============================================================ */
 
 /* ============================================================
  * Form controls
  * ============================================================ */
 
-/* WCAG 1.4.11 Non-text Contrast: Bootstrap's default border (#dee2e6) is
+/* WCAG 1.4.11 Non-text Contrast: Bootstrap's default border (var(--sfsc-border)) is
    only 1.61:1 on white. SFSC blue (#333366) is 10.7:1 — well above the 3:1 minimum. */
 .sfsc-search-input {
     border-color: var(--sfsc-blue) !important;
@@ -78,6 +78,9 @@
     --sfsc-orange-dark: #B45309; /* AA-safe orange for text on white / white text on it (5.02:1) */
     --sfsc-orange-light: #F9A55F;/* AA-safe orange for text on --sfsc-blue (5.86:1) */
     --sfsc-blue: #333366;        /* PMS 295 RGB: 51-51-102 */
+    --sfsc-blue-light: #70709D;  /* active/selected chrome surface under white text (4.67:1) */
+    --sfsc-border: #DEE2E6;      /* hairline borders — decorative only, must never carry meaning (1.6:1) */
+    --sfsc-surface: #F8F9FA;     /* light fill for box/card title bars */
 }
 
 /* =============================================================================
@@ -108,15 +111,9 @@ body {
 }
 
 /* =============================================================================
-   Typography
+   Typography — defined in the CMS Look & Feel Text panel (DESIGN.md §12),
+   not here. Do not re-add heading rules; two sources of truth drift apart.
    ============================================================================= */
-h3, h4, h5, h6 {
-    font-weight: 600;
-}
-
-h3 {
-    font-size: 24px;
-}
 
 /* =============================================================================
    Header
@@ -169,7 +166,7 @@ header {
 /* Branding bar (white bar with logo) */
 .sfsc-branding-bar {
     background-color: #ffffff;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--sfsc-border);
     padding: 0.75rem 0;
 }
 
@@ -273,7 +270,7 @@ header {
     font-weight: 600;
     padding: 0.5rem 0.875rem !important;
     border-radius: 0.25rem;
-    transition: all 0.2s ease;
+    transition: color 0.2s ease, background-color 0.2s ease;
 }
 
 .sfsc-nav .sfsc-nav-link:hover {
@@ -285,7 +282,7 @@ header {
 .sfsc-nav .sfsc-nav-link.active:hover,
 .sfsc-nav .sfsc-nav-link.active:focus {
     color: #ffffff !important;
-    background-color: #70709d !important;
+    background-color: var(--sfsc-blue-light) !important;
 }
 
 /* LibGuides system nav bar */
@@ -315,7 +312,7 @@ header {
     left: 0;
     z-index: 1050;
     background-color: #ffffff !important;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--sfsc-border);
     border-top: 3px solid var(--sfsc-orange);
     border-radius: 0 0 0.25rem 0.25rem;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
@@ -348,7 +345,7 @@ header {
     color: #222222 !important;
     padding: 0.5rem 1rem;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: color 0.2s ease, background-color 0.2s ease;
     border: none;
     background: none;
     width: 100%;
@@ -371,7 +368,6 @@ header {
         opacity: 1 !important;
         background-color: #f8f8f8 !important;
         border: none;
-        border-left: 3px solid var(--sfsc-orange);
         box-shadow: none;
         padding-left: 1rem;
         transition: none;
@@ -407,17 +403,18 @@ header {
    Cards / Boxes
    ============================================================================= */
 
-/* LibGuides LC boxes */
+/* LibGuides LC boxes — aligned to the flat .s-lib-box treatment (DESIGN.md §4) */
 #s-lc-box-36177 .s-lc-box, #s-lc-box-58458 .s-lc-box, #s-lc-box-58460 .s-lc-box, #s-lc-box-58462 .s-lc-box {
-    border-width: 2px;
-    box-shadow: 0 5px 25px 0 #c2c2c2;
+    border: 1px solid var(--sfsc-border);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 #s-lc-box-36177 .s-lc-box-title, #s-lc-box-58458 .s-lc-box-title, #s-lc-box-58460 .s-lc-box-title, #s-lc-box-58462 .s-lc-box-title {
     font-weight: 600;
     font-size: 24px;
-    border-bottom: 3px solid #c2c2c2;
-    background-image: linear-gradient(#e8eaf6, #c5cae9);
+    border-bottom: 1px solid var(--sfsc-border);
+    background-color: var(--sfsc-surface);
+    background-image: none;
     line-height: 28px;
 }
 
@@ -425,7 +422,7 @@ header {
     font-size: 18px;
     margin: 0;
     line-height: normal;
-    color: #333;
+    color: var(--sfsc-blue);
 }
 
 /* LibGuides box body content */
@@ -444,7 +441,7 @@ header {
 }
 
 .s-lc-box-content a {
-    color: #1e10e6;
+    color: #007698;
 }
 
 /* Content box body text links (p a scoping excludes LibGuides link-list boxes) */
@@ -500,28 +497,28 @@ header {
     background-color: var(--sfsc-blue) !important;
 }
 
-/* BS5 card / BS3 panel heading */
+/* BS5 card / BS3 panel heading — matches .s-lib-box-title */
 .card .card-header,
 .panel-default>.panel-heading {
-    color: #333;
-    background-image: linear-gradient(#e8eaf6, #c5cae9);
-    border-color: #c2c2c2;
+    color: var(--sfsc-blue);
+    background-color: var(--sfsc-surface);
+    background-image: none;
     font-size: 16px;
     font-weight: 600;
-    border-bottom: 3px solid #c2c2c2;
+    border-bottom: 1px solid var(--sfsc-border);
 }
 
 /* LibGuides s-lib-box card */
 .s-lib-box {
-    border: 1px solid #dee2e6;
+    border: 1px solid var(--sfsc-border);
     border-radius: 0.25rem;
     box-shadow: 0 2px 4px rgba(0,0,0,.05);
 }
 
 .s-lib-box-title {
-    background-color: #f8f9fa;
+    background-color: var(--sfsc-surface);
     color: var(--sfsc-blue);
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: 1px solid var(--sfsc-border);
     font-size: 1.125rem !important;
     font-weight: 600;
 }
@@ -549,26 +546,17 @@ header {
 }
 
 /* =============================================================================
-   Nav Pills / Search Block
+   Search Block
    ============================================================================= */
 
-
-/* Library calendar sidebar buttons */
-#s-lg-hp-nav-bottom .nav-pills .nav-link.active,
-#s-lg-hp-nav-bottom .nav-pills .nav-link.active:focus,
-#s-lg-hp-nav-bottom .nav-pills .nav-link.active:hover {
-    color: #fff;
-    background-color: #333366;
-    border-radius: .375rem;
-}
-
-/* Home page search block area */
+/* Search block area (email-resources / homepage / search pages) */
 #s-lg-er-nav-bottom, #s-lg-hp-nav-bottom, #s-lg-srch-nav-bottom {
     padding: 10px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    border-bottom: 3px solid #c2c2c2;
-    background-image: linear-gradient(#e8eaf6, #c5cae9);
+    border-bottom: 1px solid var(--sfsc-border);
+    background-color: var(--sfsc-surface);
+    background-image: none;
     color: #000;
 }
 
@@ -608,10 +596,16 @@ header {
     border-color: #333366;
 }
 
-/* Email me button */
+/* Email me button — matches .btn-primary states */
 .s-lib-profile-email a {
     color: #fff;
-    background-color: #1e10e6;
+    background-color: var(--sfsc-blue);
+}
+
+.s-lib-profile-email a:hover,
+.s-lib-profile-email a:focus {
+    color: #fff;
+    background-color: var(--sfsc-orange-dark);
 }
 
 /* =============================================================================
@@ -619,7 +613,7 @@ header {
    ============================================================================= */
 .alert-info {
     background-color: #f0f2f7;
-    border-color: #e0e0e0;
+    border-color: var(--sfsc-border);
 }
 
 /* =============================================================================
@@ -688,7 +682,7 @@ header {
 /* Institutional strip at the very bottom — white so logo sits correctly */
 .sfsc-footer-institutional {
     background-color: #ffffff;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid var(--sfsc-border);
     color: #444444;
 }
 
@@ -804,13 +798,13 @@ header {
 #s-lg-hp-nav .s-lg-index-nav-btn.active .btn,
 #s-lg-hp-nav .s-lg-index-nav-btn.active .btn:hover,
 #s-lg-hp-nav .s-lg-index-nav-btn.active .btn:focus-visible {
-    background-color: #70709d !important;
+    background-color: var(--sfsc-blue-light) !important;
     color: #ffffff !important;
 }
 
 /* Search row within the guide nav bar */
 #s-lg-hp-nav-bottom {
-    background-color: #70709d !important;
+    background-color: var(--sfsc-blue-light) !important;
     background-image: none !important;
     border-bottom: none !important;
     border-radius: 0 !important;

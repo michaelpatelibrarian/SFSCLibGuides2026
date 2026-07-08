@@ -8,7 +8,7 @@ kuehnlem@southflorida.edu) — contact them for logo files, alternative logo tre
 color swatches.
 
 Engineering constraints (CSS scoping against LibGuides internals, paste-field quirks, generated
-markup) live in `CLAUDE.md`, not here.
+markup) live in `AGENTS.md`, not here.
 
 ---
 
@@ -36,20 +36,24 @@ carry the surfaces and text while orange works as a *decorative* signature — n
 | `--sfsc-blue` | `#333366` | PMS 295 (CMYK 93-90-31-20) | Primary chrome: nav bar, footer, buttons, form borders, link color in guide bodies. |
 | `--sfsc-orange-dark` | `#B45309` | derived (not print brand) | Orange as text/hover on white or light backgrounds (5.02:1); button hover fill under white text (5.02:1). |
 | `--sfsc-orange-light` | `#F9A55F` | derived (not print brand) | Orange as text/hover on `--sfsc-blue` backgrounds (5.86:1), e.g. footer links. |
+| `--sfsc-blue-light` | `#70709D` | derived (not print brand) | Active/selected chrome surface under white text (4.67:1): nav link, guide-list tab, search row. |
+| `--sfsc-border` | `#DEE2E6` | Bootstrap gray-200 | Hairline borders — decorative only (1.6:1), must never carry meaning. Matches the CMS box border. |
+| `--sfsc-surface` | `#F8F9FA` | Bootstrap gray-100 | Light fill for box/card/panel title bars. |
 
 ### Working colors (used, not tokenized)
 
 | Hex | Role |
 |---|---|
 | `#007698` | Body/prose link color (PMS 634 "Cerulean" from the complementary palette; 5.19:1 on white) |
-| `#70709D` | Active nav item / active guide-list tab background under white text (4.67:1) |
 | `#222250` | Search pill button hover (darkened blue) |
 | `#000000` | Body text |
 | `#222222` | Dropdown item text |
 | `#444444` | Institutional footer strip text |
 | `#555555` | Muted small text on white (e.g. LibCal date labels — minimum gray for AA at small sizes) |
-| `#e0e0e0` / `#dee2e6` | Hairline borders (decorative only — 1.6:1, must not carry meaning) |
-| `#f8f8f8` / `#f8f9fa` | Subtle light fills (mobile dropdown, box title bars) |
+| `#f8f8f8` | Mobile dropdown fill |
+
+(The former working colors `#70709D`, `#dee2e6`/`#e0e0e0`, and `#f8f9fa` were promoted to the
+tokens above in sfsccustom.css v1.8; the two hairline grays were consolidated into `--sfsc-border`.)
 
 ### Complementary brand palette (from the identity guide)
 
@@ -96,7 +100,7 @@ on white.**
 |---|---|---|---|
 | Body | 1rem (16px) | 400 | color `#000` on white |
 | h3 | 24px | 600 | h3–h6 are all weight 600 |
-| Nav links | 16px | 600 | white on blue; high-specificity override required (see CLAUDE.md) |
+| Nav links | 16px | 600 | white on blue; high-specificity override required (see AGENTS.md) |
 | Guide side nav | 16px | 400 | both levels (`.nav-link` and `.d-block`) |
 | Box titles | 1.125rem | 600 | `--sfsc-blue` on `#f8f9fa` |
 | Guide-list tab buttons | 15px | 600 | UPPERCASE, letter-spacing 0.04em |
@@ -111,7 +115,7 @@ on white.**
 
 1. **Skip link** — visually hidden until focused; blue background, white text.
 2. **Orange accent bar** — 6px solid `--sfsc-orange`, `aria-hidden`.
-3. **Branding bar** — white, 1px `#e0e0e0` bottom border, 0.75rem padding. Full-color SFSC
+3. **Branding bar** — white, 1px `--sfsc-border` bottom border, 0.75rem padding. Full-color SFSC
    logo at 40px height (left); "Library Home" link (right) in blue 600 at 0.875rem, hover
    `--sfsc-orange-dark`.
 4. **Nav bar** — `--sfsc-blue` background, 1px white/15% top border, **4px solid orange bottom
@@ -121,10 +125,11 @@ on white.**
 
 ### Dropdown menus
 
-White panel, 1px `#e0e0e0` border with a **3px orange top border**, radius `0 0 0.25rem 0.25rem`,
+White panel, 1px `--sfsc-border` border with a **3px orange top border**, radius `0 0 0.25rem 0.25rem`,
 shadow `0 0.5rem 1rem rgba(0,0,0,0.1)`, min-width 210px. Items `#222222`, 0.5rem × 1rem padding;
 hover/focus: blue text on 10% orange tint. Opens with a 0.2s fade/translate. On mobile the menu
-renders inline: static position, `#f8f8f8` fill, 3px orange *left* border, no shadow.
+renders inline: static position, `#f8f8f8` fill with indent, no shadow (the former orange left
+border was removed in v1.8 — side-stripe accents are banned).
 
 ### Buttons
 
@@ -156,8 +161,9 @@ FOAL variant adds a leading select (max-width 11rem) sharing the pill's left cap
 ### Content boxes / cards
 
 1px `#dee2e6` border, 0.25rem radius, shadow `0 2px 4px rgba(0,0,0,0.05)`. Title bar `#f8f9fa`
-with blue 600 text and 1px bottom border. (Legacy BS3-era boxes use an `#e8eaf6 → #c5cae9`
-gradient title — being phased out, do not add new ones.)
+with blue 600 text and 1px bottom border. (The BS3-era `#e8eaf6 → #c5cae9` gradient title
+bars were removed in sfsccustom.css v1.8 — every box family now uses this flat treatment.
+Do not reintroduce gradients.)
 
 ### Footer
 
@@ -217,7 +223,7 @@ form containers, `0 0 0 0.2rem rgba(243,123,32,0.35)` for the hamburger toggler.
 - **Focus visible everywhere**: `:focus-visible` outline `2px solid currentColor, offset 2px`
   on prose links; ring styles on form/nav controls as in §6.
 - **Keyboard**: dropdowns open with Enter *and* Space (toggles are `role="button"`), close with
-  Escape; skip link resolves per page type (see CLAUDE.md); `aria-current="page"` marks the
+  Escape; skip link resolves per page type (see AGENTS.md); `aria-current="page"` marks the
   active nav item; `aria-expanded` is maintained on toggles.
 - **Form controls**: borders use `--sfsc-blue` — Bootstrap's default `#dee2e6` border fails
   the 3:1 non-text minimum.
@@ -257,7 +263,7 @@ form containers, `0 0 0 0.2rem rgba(243,123,32,0.35)` for the hamburger toggler.
 - Don't rely on color alone for any state change.
 - Don't introduce new shadows, gradients, or border radii outside §6 and §4.
 - Don't write generic Bootstrap-class selectors (`.nav-link`, `.dropdown-item`…) — scope them
-  (see CLAUDE.md, "CSS Scoping — Critical").
+  (see AGENTS.md, "CSS Scoping — Critical").
 
 ## 11. Agent Prompt Guide
 
