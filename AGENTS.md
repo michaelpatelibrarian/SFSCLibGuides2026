@@ -48,6 +48,12 @@ Code is never edited on the server directly. All changes are submitted through t
 | `childrenslitnavbar.html` | Sample of LibGuides-generated side nav HTML (reference for CSS targeting) |
 | `homepagelist.html` | Actual LibGuides-generated HTML for the guide list page (ALL GUIDES / BY SUBJECT tab bar) |
 | `askalibrarian.html` | Ask a Librarian help box (chat/text/email buttons) — replaces the inaccessible askalibrarian.org iframe widget (paste into LibGuides content box) |
+| `libcalheadincludes.html` | LibCal "Custom JS/CSS Code" field: fonts + includes for sfsccalcustom.css/js (source of truth for the field) |
+| `sfsccalcustom.css` | LibCal Bootstrap 3 skin — uploaded via LibGuides customization files, served from CloudFront |
+| `sfsccalcustom.js` | LibCal header nav JS (dropdowns, hamburger, skip link) — uploaded alongside the CSS |
+| `libcalheader.html` | LibCal "Custom Header Code" field: BS3-compatible port of the SFSC header + nav |
+| `libcalfooter.html` | LibCal "Custom Footer Code" field: BS3-compatible footer (FA4 icons) |
+| `previouslibcaldesigns/` | Pre-port LibCal customizations + admin Look & Feel screenshots (reference; superseded by the files above) |
 | `libraryhours.html` | LibCal hours widget embed — paste into a LibGuides HTML content box |
 | `sidebardatehead.html` | Focused LibCal sidebar widget snippet used for date-label contrast fixes |
 | `hourswidget.html` | Full rendered HTML output of the LibCal widget (reference for CSS targeting) |
@@ -199,6 +205,31 @@ All hover states (guide-body links, content-box links, homepage sidebar links, `
 - `sfsccustom.js` fixes this with `normalizeSearchResultSummary()`, which walks text nodes in `#s-lg-srch-content` and replaces `/\bPages\s+,/g` with `Pages,`.
 - `observeSearchResults()` attaches a `MutationObserver` to `#s-lg-srch-content` so the cleanup reruns after initial AJAX render, sorting, pagination, or filter changes.
 - This is a JavaScript fix, not CSS, because the extra space is literal generated text rather than spacing between styleable elements.
+
+## LibCal — Bootstrap 3 Port
+
+LibCal (libcal.southflorida.edu) is still **Bootstrap 3** — Springshare has not announced a
+BS5 date for it (LibAnswers is next in line), so the SFSC skin there is a thin, token-driven
+BS3 port that will be re-mapped when LibCal migrates. Key facts:
+
+- LibCal Admin → Look & Feel has three public-page paste fields: **Custom JS/CSS Code**
+  (`libcalheadincludes.html`), **Custom Header Code** (`libcalheader.html`), **Custom Footer
+  Code** (`libcalfooter.html`). A separate Tablet/Kiosk JS/CSS field exists (unused).
+- **Never paste LibGuides code into LibCal** (Springshare warning; the pre-port CSS was a
+  stale LibGuides copy carrying the white-on-`#f37b20` contrast failures fixed in v1.7).
+- **jQuery 3.7.1 is preloaded on every LibCal page — never load jQuery.** Our nav JS is
+  vanilla and framework-independent (same capture-phase pattern as `sfsccustom.js`).
+- BS5 utilities (`d-flex`, spacing, `text-md-end`…) don't exist in BS3 — they're shimmed,
+  **scoped under `.sfsc-bs5shim`** on the header/footer roots. Don't use unshimmed BS5
+  utilities in LibCal markup; BS3 grid classes (`col-md-*`, `col-lg-*`, `row`) work as-is.
+- The collapse/hamburger is our own JS + CSS (`.navbar-collapse.show`), depending on neither
+  BS3 nor BS5 — it survives the eventual migration.
+- LibCal ships **Font Awesome 4.7**: use FA4 icon names (`fa fa-facebook`,
+  `fa fa-youtube-play`), not `fab fa-*`.
+- LibCal has **no native skip link** and its `<main>` has no id: the inline JS assigns
+  `id="sfsc-main"` + `tabindex="-1"` and points our skip link at it.
+- BS3 stock contrast fixes in the skin: `.btn-default` (1.6:1 border → blue outline style),
+  `.text-muted` (#777 → #555), links → Cerulean/`--sfsc-orange-dark` hover.
 
 ## LibCal Hours Widget (`#s-lc-fhw3652`)
 

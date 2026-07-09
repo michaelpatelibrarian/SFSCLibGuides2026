@@ -328,3 +328,13 @@ header background `#f8f9fa`, header font `#333366`.
 
 > Hand-entry warning: hex typos here have shipped twice (`#B45309` → `#045309`, `#B54309`).
 > Copy-paste values; don't retype them.
+
+## 13. LibCal (Bootstrap 3) Port
+
+LibCal remains on Bootstrap 3 until Springshare migrates it. The same tokens, type choices,
+and contrast rules apply there via a thin BS3 skin — `sfsccalcustom.css` + `sfsccalcustom.js`
+(uploaded to CloudFront, included by `libcalheadincludes.html`), `libcalheader.html`,
+`libcalfooter.html`. Design decisions live here; LibCal-specific
+engineering constraints (shims, FA4, jQuery, skip link) live in AGENTS.md § "LibCal —
+Bootstrap 3 Port". When LibCal goes BS5, only selectors change; every value in this document
+carries over.

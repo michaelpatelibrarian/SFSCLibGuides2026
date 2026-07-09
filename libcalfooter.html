@@ -1,0 +1,114 @@
+<!--
+  LibCal Look & Feel — "Custom Footer Code" field. Source of truth.
+  BS3-compatible port of the LibGuides footer (footer.html). Differences from the
+  LibGuides version: Font Awesome 4.7 icon classes (LibCal ships FA4, not FA5/6),
+  .sfsc-bs5shim scoping for the utility shims, BS3 grid classes (col-md-*/col-lg-*
+  exist in BS3), address styling moved to CSS (libcalheadincludes.html), and no
+  hours-today script (LibCal pages already show live hours natively).
+-->
+<footer class="sfsc-footer sfsc-bs5shim" aria-label="Site footer">
+
+  <!-- Library Info Section (blue band) -->
+  <div class="sfsc-footer-content">
+    <div class="container py-4">
+      <div class="row">
+
+        <!-- Contact -->
+        <div class="col-lg-4 col-md-6 mb-3">
+          <h2 class="sfsc-footer-heading">Highlands Campus Library</h2>
+          <address class="small mb-3">
+            600 W College Drive<br>
+            Avon Park, FL 33825
+          </address>
+          <p class="small mb-1">
+            <strong>Circulation:</strong>
+            <a href="tel:+18637847306">(863) 784-7306</a>
+          </p>
+          <p class="small mb-1">
+            <strong>Reference:</strong>
+            <a href="tel:+18637847304">(863) 784-7304</a>
+          </p>
+          <p class="small mb-3">
+            <strong>Email:</strong>
+            <a href="mailto:SFSC-Library@southflorida.edu">SFSC-Library@southflorida.edu</a>
+          </p>
+          <div class="d-flex gap-3">
+            <a href="https://www.facebook.com/SFSCLibrary/" aria-label="SFSC Library on Facebook" class="sfsc-footer-social">
+              <i class="fa fa-facebook" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.youtube.com/@sfsc-library" aria-label="SFSC Library on YouTube" class="sfsc-footer-social">
+              <i class="fa fa-youtube-play" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Library Resources -->
+        <div class="col-lg-2 col-md-6 mb-3">
+          <h2 class="sfsc-footer-heading">Library Resources</h2>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="https://libguides.southflorida.edu/">Research Guides</a></li>
+            <li class="mb-2"><a href="https://libguides.southflorida.edu/az/databases">A-Z Databases</a></li>
+            <li class="mb-2"><a href="https://libguides.southflorida.edu/writing/resources/style-guides">Citation Style Guides</a></li>
+            <li class="mb-2"><a href="https://libguides.southflorida.edu/ask">Ask a Librarian</a></li>
+            <li class="mb-2"><a href="https://sfsc-flvc.primo.exlibrisgroup.com/discovery/search?vid=01FALSC_SFSC:SFSC">Library Catalog</a></li>
+            <li class="mb-2"><a href="https://www.southflorida.edu/current-students/library/highlands-campus-library">Library Home</a></li>
+            <li class="mb-2"><a href="https://libguides.southflorida.edu/laptops">Laptop Borrowing</a></li>
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div class="col-lg-2 col-md-6 mb-3">
+          <h2 class="sfsc-footer-heading">Services</h2>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="https://libcal.southflorida.edu/reserve/spaces/highlandsstudyrooms">Study Rooms</a></li>
+            <li class="mb-2"><a href="https://libcal.southflorida.edu/appointments/sfsctutoring">Tutoring</a></li>
+            <li class="mb-2"><a href="https://libguides.southflorida.edu/writing">Writing Center</a></li>
+            <li class="mb-2"><a href="https://libguides.southflorida.edu/oer">Open Educational Resources</a></li>
+            <li class="mb-2"><a href="https://libguides.southflorida.edu/pantherpathways">Panther Pathways</a></li>
+          </ul>
+        </div>
+
+        <!-- Hours -->
+        <div class="col-lg-4 col-md-6 mb-3">
+          <h2 class="sfsc-footer-heading">Library Hours</h2>
+          <p class="small mb-1">
+            <a href="https://libcal.southflorida.edu/hours">View all locations and hours &rarr;</a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Institutional Strip (white) -->
+  <div class="sfsc-footer-institutional">
+    <div class="container py-3">
+      <div class="row align-items-center">
+        <div class="col-md-6 mb-2 mb-md-0">
+          <a href="http://southflorida.edu/" class="d-inline-block">
+            <img src="https://d2jv02qf7xgjwx.cloudfront.net/customers/3978/images/sfsc-full-color.png"
+                 alt="South Florida State College"
+                 class="sfsc-footer-inst-logo">
+          </a>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <ul class="list-inline mb-1 small">
+            <li class="list-inline-item">
+              <a href="https://www.southflorida.edu/privacy">Privacy Policy</a>
+            </li>
+            <li class="list-inline-item" aria-hidden="true">|</li>
+            <li class="list-inline-item">
+              <a href="https://www.southflorida.edu/current-students/advising-counseling-center/services-students-with-disabilities/accessibility-statement">Accessibility</a>
+            </li>
+            <li class="list-inline-item" aria-hidden="true">|</li>
+            <li class="list-inline-item">
+              <a href="https://www.southflorida.edu/college/welcome/about-sfsc">About SFSC</a>
+            </li>
+          </ul>
+          <p class="small mb-0">&copy; 2026 South Florida State College. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</footer>

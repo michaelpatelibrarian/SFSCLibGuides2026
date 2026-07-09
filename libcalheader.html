@@ -1,0 +1,66 @@
+<!--
+  LibCal Look & Feel — "Custom Header Code" field. Source of truth.
+  BS3-compatible port of the LibGuides header (header.html): same structure and
+  .sfsc-* classes, but no Bootstrap data attributes — the hamburger, dropdowns,
+  and skip link are handled by the script in libcalheadincludes.html, which must
+  be pasted into "Custom JS/CSS Code" first. The .sfsc-bs5shim class scopes the
+  BS5 utility shims (d-flex etc.) that BS3 lacks.
+-->
+<div class="sfsc-header sfsc-bs5shim">
+  <!-- Skip navigation: JS points this at <main> (LibCal has no native skip link) -->
+  <a href="#sfsc-main" class="sfsc-skip-link">Skip to main content</a>
+
+  <!-- Thin orange accent bar -->
+  <div class="sfsc-top-accent" aria-hidden="true"></div>
+
+  <!-- SFSC Branding Bar -->
+  <div class="sfsc-branding-bar">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a href="http://southflorida.edu/" class="sfsc-logo-link">
+        <img src="https://d2jv02qf7xgjwx.cloudfront.net/customers/3978/images/sfsc-full-color.png"
+             alt="South Florida State College"
+             class="sfsc-header-logo">
+      </a>
+      <a href="https://www.southflorida.edu/current-students/library/highlands-campus-library" class="sfsc-library-link">Library Home</a>
+    </div>
+  </div>
+
+  <!-- Library Navigation -->
+  <nav class="sfsc-nav" aria-label="Library navigation">
+    <div class="container">
+      <button class="sfsc-nav-toggler" type="button" aria-controls="sfscNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="navbar-collapse" id="sfscNav">
+        <ul class="sfsc-nav-links ms-auto">
+          <li class="dropdown">
+            <a class="sfsc-nav-link dropdown-toggle" href="#" id="libcalResourcesDropdown" role="button" aria-expanded="false">
+              Resources
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="libcalResourcesDropdown">
+              <li><a class="dropdown-item" href="https://libguides.southflorida.edu/">Research Guides</a></li>
+              <li><a class="dropdown-item" href="https://libguides.southflorida.edu/az/databases">A-Z Databases</a></li>
+              <li><a class="dropdown-item" href="https://libguides.southflorida.edu/writing/resources/style-guides">Citation Style Guides</a></li>
+              <li><a class="dropdown-item" href="https://sfsc-flvc.primo.exlibrisgroup.com/discovery/search?vid=01FALSC_SFSC:SFSC">Library Catalog</a></li>
+              <li><a class="dropdown-item" href="https://libguides.southflorida.edu/laptops">Laptop Borrowing</a></li>
+              <li><a class="dropdown-item" href="https://libguides.southflorida.edu/ask">Ask a Librarian</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="sfsc-nav-link dropdown-toggle" href="#" id="libcalServicesDropdown" role="button" aria-expanded="false">
+              Services
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="libcalServicesDropdown">
+              <li><a class="dropdown-item" href="https://libcal.southflorida.edu/reserve/spaces/highlandsstudyrooms">Study Rooms</a></li>
+              <li><a class="dropdown-item" href="https://libcal.southflorida.edu/appointments/sfsctutoring">Tutoring</a></li>
+              <li><a class="dropdown-item" href="https://libguides.southflorida.edu/writing">Writing Center</a></li>
+              <li><a class="dropdown-item" href="https://libguides.southflorida.edu/oer">Open Educational Resources</a></li>
+              <li><a class="dropdown-item" href="https://libguides.southflorida.edu/pantherpathways">Panther Pathways</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
