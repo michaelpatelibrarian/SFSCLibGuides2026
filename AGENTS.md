@@ -53,10 +53,7 @@ Code is never edited on the server directly. All changes are submitted through t
 | `sfsccalcustom.js` | LibCal header nav JS (dropdowns, hamburger, skip link) — uploaded alongside the CSS |
 | `libcalheader.html` | LibCal "Custom Header Code" field: BS3-compatible port of the SFSC header + nav |
 | `libcalfooter.html` | LibCal "Custom Footer Code" field: BS3-compatible footer (FA4 icons) |
-| `previouslibcaldesigns/` | Pre-port LibCal customizations + admin Look & Feel screenshots (reference; superseded by the files above) |
 | `libraryhours.html` | LibCal hours widget embed — paste into a LibGuides HTML content box |
-| `sidebardatehead.html` | Focused LibCal sidebar widget snippet used for date-label contrast fixes |
-| `hourswidget.html` | Full rendered HTML output of the LibCal widget (reference for CSS targeting) |
 
 ## Guidelines
 
