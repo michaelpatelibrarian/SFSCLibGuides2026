@@ -12,42 +12,7 @@
 
 Custom CSS, JavaScript, and HTML templates for the **South Florida State College** LibGuides platform. This repository tracks an ongoing migration from Bootstrap 3 to Bootstrap 5 with WCAG 2.1 Level AA accessibility compliance.
 
-## Proof
-
-Current live pages on the SFSC LibCal site (Bootstrap 3 skin), styled with the same SFSC brand tokens and contrast rules documented in [DESIGN.md](DESIGN.md):
-
-<table>
-  <tr>
-    <td align="center">
-      <img src="./currentscreenshots/libcal.png" width="280" alt="LibCal homepage on the SFSC Library site, showing the Bootstrap 3 skin using SFSC blue chrome and orange accent border"><br>
-      <sub>LibCal homepage</sub>
-    </td>
-    <td align="center">
-      <img src="./currentscreenshots/bookastudyroom.png" width="280" alt="Book a study room booking flow styled with SFSC brand colors and accessible form controls"><br>
-      <sub>Book a study room</sub>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="./currentscreenshots/openinghours.png" width="280" alt="Library opening hours widget with high-contrast hour labels meeting WCAG 2.1 AA"><br>
-      <sub>Opening hours widget</sub>
-    </td>
-    <td align="center">
-      <img src="./currentscreenshots/librarianappointment.png" width="280" alt="Book a librarian appointment page with keyboard-accessible date and time selection"><br>
-      <sub>Book a librarian appointment</sub>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="./currentscreenshots/monthlyhours.png" width="280" alt="Monthly hours calendar view with accessible date and status contrast"><br>
-      <sub>Monthly hours calendar</sub>
-    </td>
-    <td align="center">
-      <img src="./currentscreenshots/tutorappointment.png" width="280" alt="Book a tutor appointment page matching the SFSC LibCal Bootstrap 3 skin"><br>
-      <sub>Book a tutor appointment</sub>
-    </td>
-  </tr>
-</table>
+> This repository also carries a companion Bootstrap 3 skin for **LibCal**, a separate Springshare product — see [LIBCAL.md](LIBCAL.md) for those files and screenshots.
 
 ## Background
 
@@ -94,7 +59,7 @@ These files contain actual HTML output from LibGuides, used to write accurate CS
 | `april2026releasenotes.md` | LibGuides April 2026 release notes |
 | `SFSC LibGuides - Bootstrap 5 Template.pdf` | Accessibility evaluation (4/3/2026) |
 | `boxandtabcoloroptions.png` | LibGuides color settings screenshot |
-| `currentscreenshots/` | Live-site reference screenshots shown in the [Proof](#proof) section above |
+| `LIBCAL.md` | LibCal Bootstrap 3 port: files and live-site screenshots (separate Springshare product) |
 | `AGENTS.md` | AI agent guidance for this project (`CLAUDE.md` just imports it) |
 
 ## Stack
@@ -114,7 +79,7 @@ These files contain actual HTML output from LibGuides, used to write accurate CS
 5. Save, then hard-refresh the public page with **Ctrl+Shift+R** to bypass browser cache.
 
 > [!NOTE]
-> The A-Z Databases page has its own separate Look & Feel settings — CSS and JS must be pasted there independently.
+> The A-Z Databases page shares the main site's Look & Feel CSS/JS (no separate paste needed since the BS5 rollout) — it just has a few additional settings in the admin panel that only apply to those pages.
 
 > [!WARNING]
 > LibGuides has a known bug where all three Look & Feel fields (HTML, CSS, JS) can be wiped simultaneously. If the page breaks unexpectedly, check all three fields and re-paste from this repository.

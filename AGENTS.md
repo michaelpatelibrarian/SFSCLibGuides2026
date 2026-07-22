@@ -54,6 +54,7 @@ Code is never edited on the server directly. All changes are submitted through t
 | `libcalheader.html` | LibCal "Custom Header Code" field: BS3-compatible port of the SFSC header + nav |
 | `libcalfooter.html` | LibCal "Custom Footer Code" field: BS3-compatible footer (FA4 icons) |
 | `libraryhours.html` | LibCal hours widget embed — paste into a LibGuides HTML content box |
+| `LIBCAL.md` | LibCal Bootstrap 3 port: paste-file reference and live-site proof screenshots (separate Springshare product from LibGuides) |
 
 ## Guidelines
 
@@ -82,7 +83,7 @@ When a CSS fix has no visible effect, suspect that LibGuides' system stylesheet 
 - The CSS block also holds the font/stylesheet `<link>` lines (preconnects, Google Fonts, sfsccustom.css include) — `headincludes.html` is the source of truth. The fonts link loads **Poppins + Lexend**; removing `family=Lexend` silently breaks the `.readability` utility used in guide content.
 - All three fields (Header HTML, CSS, JS) can get wiped together by a LibGuides CMS bug. If the page breaks, check all three.
 - After pasting, always hard refresh (Ctrl+Shift+R) to bypass browser cache.
-- The A-Z Databases page has its own separate Look & Feel settings — CSS/JS must be pasted there independently.
+- The A-Z Databases page's Look & Feel settings were unified with the main site once BS5 went live — the main CSS/JS paste fields apply there too, no separate paste needed. It still has a few additional admin settings that only appear/apply for those pages.
 
 ## Nav Bar
 
