@@ -90,10 +90,18 @@ body {
     background-color: #ffffff;
     padding-left: 0;
     padding-right: 0;
-    font-family: Poppins, Arial, sans-serif;
+    font-family: 'Noto Sans Display', Arial, sans-serif !important;
     font-size: 1rem !important;
     font-weight: 400;
     color: #000;
+}
+
+/* LibGuides' Look & Feel Text panel has no Noto Sans Display option and sets font-family
+   directly on these elements (not just inherited from body) — override per Springshare's
+   documented pattern for unlisted fonts. Panel stays set to Poppins for size/weight/color. */
+h1, h2, h3, h4, h5, h6,
+p {
+    font-family: 'Noto Sans Display', Arial, sans-serif !important;
 }
 
 /* BS5 accessibility helper (replaces deprecated .sr-only) */
@@ -293,7 +301,7 @@ header {
 
 .sfsc-nav .navbar-nav .nav-link {
     color: #ffffff !important;
-    font-family: Poppins, Arial, sans-serif;
+    font-family: 'Noto Sans Display', Arial, sans-serif !important;
 }
 
 /* =============================================================================
@@ -621,7 +629,7 @@ header {
    ============================================================================= */
 /* Lexend is loaded by the fonts <link> in the Look & Feel CSS block (headincludes.html) */
 .readability {
-    font-family: Lexend, Poppins, Arial, sans-serif;
+    font-family: Lexend, 'Noto Sans Display', Arial, sans-serif !important;
     font-weight: 600;
     font-size: 20px;
     line-height: 26px;

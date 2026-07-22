@@ -30,7 +30,7 @@ Code is never edited on the server directly. All changes are submitted through t
 |------|---------|
 | `PRODUCT.md` | Strategic context: register, users, purpose, design principles (read by design tooling) |
 | `DESIGN.md` | Design system: brand colors + verified WCAG ratios, typography, components, logo rules (supersedes the Visual Identity Guide PDF for this project) |
-| `headincludes.html` | Look & Feel CSS-block contents: preconnects, Google Fonts (Poppins + Lexend), sfsccustom.css include (source of truth for the CMS field) |
+| `headincludes.html` | Look & Feel CSS-block contents: preconnects, Google Fonts (Noto Sans Display + Lexend), sfsccustom.css include (source of truth for the CMS field) |
 | `sfsccustom.css` | Bootstrap 5 custom style overrides |
 | `sfsccustom.js` | JavaScript for new BS5 header nav and active page detection |
 | `header.html` | New BS5 header |
@@ -61,7 +61,7 @@ Code is never edited on the server directly. All changes are submitted through t
 - Use Bootstrap 5.3.0 classes and components — do not use BS3 patterns.
 - All UI must meet WCAG 2.1 Level AA: proper heading hierarchy, sufficient color contrast, ARIA labels on interactive elements, keyboard navigability.
 - When migrating BS3 → BS5: replace deprecated classes (e.g., `hidden-xs` → `d-none d-sm-block`), update grid system, replace `.panel` with `.card`, update form classes.
-- Follow SFSC visual identity standards (see `DESIGN.md`) for colors, typography, and logo usage. We use the Poppins font for the web presence.
+- Follow SFSC visual identity standards (see `DESIGN.md`) for colors, typography, and logo usage. We use the Noto Sans Display font for the web presence.
 - Output clean, paste-ready HTML/CSS/JS snippets — no build tools, no npm dependencies.
 
 ## CSS Scoping — Critical
@@ -80,7 +80,7 @@ When a CSS fix has no visible effect, suspect that LibGuides' system stylesheet 
 ## LibGuides Look & Feel — Paste Fields
 
 - CSS field accepts raw CSS — no `<style>` tags needed. If pasting into an HTML field, `@import` must be the first line inside `<style>`.
-- The CSS block also holds the font/stylesheet `<link>` lines (preconnects, Google Fonts, sfsccustom.css include) — `headincludes.html` is the source of truth. The fonts link loads **Poppins + Lexend**; removing `family=Lexend` silently breaks the `.readability` utility used in guide content.
+- The CSS block also holds the font/stylesheet `<link>` lines (preconnects, Google Fonts, sfsccustom.css include) — `headincludes.html` is the source of truth. The fonts link loads **Noto Sans Display + Lexend**; removing `family=Lexend` silently breaks the `.readability` utility used in guide content.
 - All three fields (Header HTML, CSS, JS) can get wiped together by a LibGuides CMS bug. If the page breaks, check all three.
 - After pasting, always hard refresh (Ctrl+Shift+R) to bypass browser cache.
 - The A-Z Databases page's Look & Feel settings were unified with the main site once BS5 went live — the main CSS/JS paste fields apply there too, no separate paste needed. It still has a few additional admin settings that only appear/apply for those pages.

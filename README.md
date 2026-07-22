@@ -66,7 +66,7 @@ These files contain actual HTML output from LibGuides, used to write accurate CS
 
 - **CMS:** Springshare LibGuides (hosted — no direct server access)
 - **CSS Framework:** Bootstrap 5.3.0
-- **Fonts:** Poppins (via Google Fonts)
+- **Fonts:** Noto Sans Display (via Google Fonts)
 - **Accessibility Standard:** WCAG 2.1 Level AA
 - **Brand colors:** SFSC Blue `#333366` · SFSC Orange `#F37B20`
 

@@ -88,16 +88,19 @@ on white.**
 
 ## 3. Typography Rules
 
-- **Primary face:** Poppins — project decision for the web presence.
-  Stack: `Poppins, Arial, sans-serif`. Loaded weights: 400 / 500 / 600 / 700 + italic
-  400 / 700 (see `headincludes.html`) — don't style with weights outside that set.
+- **Primary face:** Noto Sans Display — project decision for the web presence (switched
+  from Poppins to move away from the "Carme" font used on the main college website, while
+  Primo's own discovery interface — a separate Ex Libris-hosted app we don't control —
+  happens to already render in Noto Sans Display).
+  Stack: `'Noto Sans Display', Arial, sans-serif`. Loaded weights: 400 / 500 / 600 / 700 +
+  italic 400 / 700 (see `headincludes.html`) — don't style with weights outside that set.
 - **Print-guide faces (context only):** the logo is set in Minion Pro Semibold ("South Florida")
   and Gibson Regular ("State College"); approved office fallbacks are Arial, Calibri, Constantia,
   Georgia. Do not recreate the logo in type.
 - **Readability utility (`.readability`):** Lexend, 20px/26px, weight 600 — easy-reading
   content blocks in guides. Lexend is purpose-built for reading proficiency (a deliberate
   accessibility feature) and is genuinely loaded (weights 400/600) via the fonts `<link>`
-  in the Look & Feel CSS block — see `headincludes.html`. Falls back to Poppins.
+  in the Look & Feel CSS block — see `headincludes.html`. Falls back to Noto Sans Display.
 
 | Element | Size | Weight | Notes |
 |---|---|---|---|
@@ -273,7 +276,7 @@ form containers, `0 0 0 0.2rem rgba(243,123,32,0.35)` for the hamburger toggler.
 Quick reference for generating UI in this system:
 
 ```
-Brand: SFSC Library. Bootstrap 5.3, Poppins, WCAG 2.1 AA.
+Brand: SFSC Library. Bootstrap 5.3, Noto Sans Display, WCAG 2.1 AA.
 Chrome/primary: #333366 (blue) with white text.
 Accent (decorative only): #F37B20 (orange) — 4px border motif; never text.
 Orange as text: #B45309 on light, #F9A55F on #333366.
@@ -298,7 +301,19 @@ be reconstructed, re-enter these values.
 **Layout:** container max-width 1440px.
 **Favicon:** `<link rel="icon" href="https://libapps.s3.amazonaws.com/customers/3978/images/favicon.ico" sizes="any">`
 
-**Text** — all Poppins, all font color `#181c32`:
+**Text** — panel stays set to Poppins (all font color `#181c32`) and is left alone: Springshare's
+Text dropdown is a fixed, curated list that offers neither Noto Sans Display nor plain Noto Sans,
+so it can't select the site's actual primary face. Per Springshare's documented pattern for
+unlisted fonts, `font-family` is instead forced via `!important` in `sfsccustom.css` (`body,
+h1–h6, p`) and `sfsccalcustom.css` for LibCal — this panel's Poppins selection only governs
+size/weight/color per element now, which are unaffected by the override. This is a permanent,
+intentional divergence between what this panel shows and what the site renders — not a TODO.
+
+> Admin-panel warning: anyone with Look & Feel access who notices this panel still says
+> "Poppins" may assume it's stale and try to "fix" it by picking a different font here. Doing
+> so won't change the rendered font (the CSS `!important` override always wins) — it'll just
+> change size/weight/color and make the panel *more* misleading. Leave this dropdown on Poppins;
+> the real font lives in `sfsccustom.css`/`sfsccalcustom.css`.
 
 | Element | Size | Style |
 |---|---|---|
