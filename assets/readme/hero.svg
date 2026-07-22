@@ -1,0 +1,58 @@
+<svg viewBox="0 0 1200 340" width="1200" height="340" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="sfsc-hero-title sfsc-hero-desc">
+  <title id="sfsc-hero-title">SFSC LibGuides — Bootstrap 5 Migration</title>
+  <desc id="sfsc-hero-desc">Paste-ready CSS, JavaScript, and HTML snippets for South Florida State College's Springshare LibGuides site, WCAG 2.1 AA verified.</desc>
+
+  <!-- chrome background -->
+  <rect x="0" y="0" width="1200" height="340" fill="#333366"/>
+  <!-- signature 4px-orange-bottom-border motif, scaled up for hero legibility -->
+  <rect x="0" y="332" width="1200" height="8" fill="#F37B20"/>
+
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+
+    <!-- left: title block -->
+    <g transform="translate(56,0)">
+      <text x="0" y="54" font-size="18" font-weight="700" letter-spacing="2" fill="#F9A55F">SPRINGSHARE LIBGUIDES · BOOTSTRAP 3 → 5</text>
+
+      <text x="0" y="112" font-size="50" font-weight="700" fill="#ffffff">SFSC LibGuides</text>
+      <text x="0" y="167" font-size="50" font-weight="700" fill="#ffffff">Bootstrap 5 Migration</text>
+
+      <text x="0" y="204" font-size="20" font-weight="400" fill="#ffffff" opacity="0.92">Paste-ready CSS, JavaScript &amp; HTML for South Florida State</text>
+      <text x="0" y="230" font-size="20" font-weight="400" fill="#ffffff" opacity="0.92">College's LibGuides site — WCAG 2.1 AA verified.</text>
+
+      <!-- pill badges, matching the site's real rounded-pill component -->
+      <g font-size="18" font-weight="600" fill="#ffffff">
+        <rect x="0" y="255" width="158" height="34" rx="17" fill="#70709D"/>
+        <text x="79" y="278" text-anchor="middle">Bootstrap 5.3</text>
+
+        <rect x="170" y="255" width="120" height="34" rx="17" fill="#70709D"/>
+        <text x="230" y="278" text-anchor="middle">Poppins</text>
+
+        <rect x="302" y="255" width="150" height="34" rx="17" fill="#70709D"/>
+        <text x="377" y="278" text-anchor="middle">WCAG 2.1 AA</text>
+      </g>
+    </g>
+
+    <!-- right: paste-in-to-chrome mechanism -->
+    <g transform="translate(780,50)">
+      <rect x="0" y="0" width="230" height="40" rx="6" fill="#F8F9FA" stroke="#DEE2E6"/>
+      <text x="16" y="26" font-family="Consolas, 'Courier New', monospace" font-size="17" font-weight="600" fill="#333366">sfsccustom.css</text>
+
+      <rect x="0" y="56" width="230" height="40" rx="6" fill="#F8F9FA" stroke="#DEE2E6"/>
+      <text x="16" y="82" font-family="Consolas, 'Courier New', monospace" font-size="17" font-weight="600" fill="#333366">sfsccustom.js</text>
+
+      <rect x="0" y="112" width="230" height="40" rx="6" fill="#F8F9FA" stroke="#DEE2E6"/>
+      <text x="16" y="138" font-family="Consolas, 'Courier New', monospace" font-size="17" font-weight="600" fill="#333366">header.html</text>
+
+      <path d="M115,152 L115,192" stroke="#ffffff" stroke-width="2" opacity="0.8"/>
+      <polygon points="106,192 124,192 115,206" fill="#ffffff" opacity="0.8"/>
+
+      <g transform="translate(0,210)">
+        <rect x="0" y="0" width="230" height="54" rx="4" fill="#4d4d99"/>
+        <rect x="16" y="15" width="38" height="6" rx="3" fill="#ffffff" opacity="0.85"/>
+        <rect x="68" y="15" width="38" height="6" rx="3" fill="#ffffff" opacity="0.85"/>
+        <rect x="120" y="15" width="38" height="6" rx="3" fill="#ffffff" opacity="0.85"/>
+        <rect x="0" y="50" width="230" height="4" fill="#F37B20"/>
+      </g>
+    </g>
+  </g>
+</svg>
