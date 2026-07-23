@@ -20,16 +20,8 @@
    ============================================================================= */
 body {
     background-color: #ffffff;
-    font-family: 'Noto Sans Display', Arial, sans-serif !important;
+    font-family: Poppins, Arial, sans-serif;
     color: #000;
-}
-
-/* LibCal's Look & Feel Text settings have no Noto Sans Display option and set font-family
-   directly on these elements (not just inherited from body) — override per Springshare's
-   documented pattern for unlisted fonts. */
-h1, h2, h3, h4, h5, h6,
-p {
-    font-family: 'Noto Sans Display', Arial, sans-serif !important;
 }
 
 /* BS3 .text-muted (#777) is 4.48:1 — just under AA for small text */
@@ -139,7 +131,7 @@ a:focus-visible {
 
 /* Readability utility (Lexend loaded above) */
 .readability {
-    font-family: Lexend, 'Noto Sans Display', Arial, sans-serif !important;
+    font-family: Lexend, Poppins, Arial, sans-serif;
     font-weight: 600;
     font-size: 20px;
     line-height: 26px;
